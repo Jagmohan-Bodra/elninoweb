@@ -1,15 +1,21 @@
 <ion-header [translucent]="true">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
   <ion-toolbar color="light">
     <ion-title>
-      All Product  
+      All Product
       <!-- <ion-buttons style="float: right;">       -->
-        <ion-button [disabled]="itemsInCart.length<=0" color="primary" style="float: right;">
-          <ion-badge *ngIf="itemsInCart.length">{{itemsInCart.length}}</ion-badge>
-          <ion-icon name="cart"></ion-icon>
-        </ion-button>
-    <!-- </ion-buttons> -->
+      <ion-button [disabled]="itemsInCart.length<=0" color="primary" style="float: right;">
+        <ion-badge *ngIf="itemsInCart.length">{{itemsInCart.length}}</ion-badge>
+        <ion-icon name="cart"></ion-icon>
+      </ion-button>
+      <!-- </ion-buttons> -->
     </ion-title>
-    
   </ion-toolbar>
 </ion-header>
 
@@ -23,30 +29,44 @@
       <ion-label>{{ item.name }}</ion-label>
     </ion-item>  
   </ion-list> -->
-  <ion-row>
-    <ion-card *ngFor="let item of items" style="width:100%">
-   <!-- <ion-img src="..\assets\img\product\MacBook_Pro_15_inch.jpg"></ion-img> -->
-   <ion-img src={{item.imgPath}}></ion-img>
-   <ion-card-header>
-     <ion-card-subtitle>{{item.price}}</ion-card-subtitle>
-     <ion-card-title >{{item.name}}</ion-card-title>
-       
-   </ion-card-header>
-   <ion-card-content style="float: right;">   
-     <ion-button color="primary" (click)="addToCart(item)" title="Add to Cart"><ion-icon name="add"></ion-icon><ion-icon name="cart"></ion-icon></ion-button>
-     <ion-button [disabled]="item.quantityInCart<=0" color="light"> {{item.quantityInCart}}</ion-button>
-     <ion-button [disabled]="item.quantityInCart<=0"  (click)="removeToCart(item)" title="Remove from Cart"><ion-icon name="remove"></ion-icon><ion-icon name="cart"></ion-icon></ion-button>
-   </ion-card-content>
-    </ion-card>
-  </ion-row>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card *ngFor="let item of items">
+          <!-- <ion-img src="..\assets\img\product\MacBook_Pro_15_inch.jpg"></ion-img> -->
+          <ion-img src={{item.imgPath}}></ion-img>
+
+          <ion-card-header>
+            <ion-card-subtitle>{{item.price}}</ion-card-subtitle>
+            <ion-card-title>{{item.name}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content style="float: right;">
+
+            <ion-button [disabled]="item.quantityInCart<=0" (click)="removeToCart(item)" title="Remove from Cart">
+              <ion-icon name="remove"></ion-icon>
+              <ion-icon name="cart"></ion-icon>
+            </ion-button>
+
+            <ion-button [disabled]="item.quantityInCart<=0" color="light"> {{item.quantityInCart}}</ion-button>
+
+            <ion-button color="primary" (click)="addToCart(item)" title="Add to Cart">
+              <ion-icon name="add"></ion-icon>
+              <ion-icon name="cart"></ion-icon>
+            </ion-button>
+
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="lines"
-      loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingSpinner="lines" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
   <ion-header>
-    <ion-toolbar>   
+    <ion-toolbar>
     </ion-toolbar>
   </ion-header>
 

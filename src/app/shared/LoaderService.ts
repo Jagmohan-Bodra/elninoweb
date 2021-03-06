@@ -6,20 +6,20 @@ import { LoadingController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class LoaderService {
-    isLoading = false;
-  constructor(public loadingController: LoadingController ) { }
+  isLoading = false;
+  constructor(public loadingController: LoadingController) { }
 
-   async showLoader() {
+  async showLoader() {
     this.isLoading = true;
     return await this.loadingController.create({
       message: 'Please wait ...',
-      spinner: 'circles' 
+      spinner: 'circles'
     }).then(a => {
       a.present().then(() => {
         console.log('loading presented');
         if (!this.isLoading) {
           a.dismiss().then(() => {
-              console.log('abort laoding')
+            console.log('abort laoding');
           });
         }
       });
@@ -29,10 +29,10 @@ export class LoaderService {
   async hideLoader() {
     this.isLoading = false;
     return await this.loadingController.dismiss().then(() => {
-        console.log('loading dismissed');
+      console.log('loading dismissed');
     });
   }
-  
-    
+
+
 
 }
