@@ -17,8 +17,8 @@ import { GlobalService } from './shared/global';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule,BrowserAnimationsModule, IonicModule.forRoot(),BsModalModule, AppRoutingModule,HttpClientModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },GlobalService],
+  imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), BsModalModule, AppRoutingModule, HttpClientModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, GlobalService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

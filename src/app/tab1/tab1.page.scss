@@ -1,0 +1,41 @@
+.logo{
+    max-width: 150px;
+    margin-left: 25px;
+}
+
+.padtop{
+    padding-top:10px;
+}
+.contentcircle{justify-content: center;}
+.circleMenu{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;    
+    margin: auto;
+    padding:12px;
+}
+
+.color1{background-color: #e32c02;}
+.color2{background-color: #ecec4b;}
+.color3{background-color: #0fe6e6;}
+.color4{background-color: #e82766;}
+.color5{background-color: #bd40bd;}
+
+.iconsize{font-size: 27px;color:#fff}
+
+.cameraicon{font-size: 30px;padding:0px;}
+
+//.listimg{object-fit: none;}
+
+.setpad{padding:4px 5px;}
+
+.collist{margin: 0px; padding: 1px;}
+
+.subfontsize{font-size: 20px;}
+.titlefontsize{font-weight: bold;}
+.title{font-size: 13px;padding:1px;word-break: break-word}
+.setcenter{text-align: center;}
+
+.maincartcount{--ion-color-base: orangered !important;}
+.badgecolor{background-color: orangered;}
+.setpadbutton {font-size: 11px;width:30%;--ion-color-base: #fabba3 !important;--ion-color-contrast:orangered !important}

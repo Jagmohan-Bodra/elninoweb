@@ -1,5 +1,8 @@
 {
   "name": "elninoweb",
-  "integrations": {},
-  "type": "angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "53806d30"
 }
