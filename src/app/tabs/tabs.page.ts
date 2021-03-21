@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  subscriber: any;
+  constructor(public platform: Platform) {
+    this.subscriber = this.platform.backButton.subscribeWithPriority(66666, () => {
+      if (this.constructor.name == "TabsPage") {
+        if (window.confirm("Are you sure want to exit app?")) {
+          navigator["app"].exitApp();
+        }
+      }
+    })
+  }
 
 }

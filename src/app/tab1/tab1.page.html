@@ -1,22 +1,62 @@
 <ion-header [translucent]="true">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  <ion-toolbar color="light">
-    <ion-title>
-      All Product
-      <!-- <ion-buttons style="float: right;">       -->
-      <ion-button [disabled]="itemsInCart.length<=0" color="primary" style="float: right;">
-        <ion-badge *ngIf="itemsInCart.length">{{itemsInCart.length}}</ion-badge>
-        <ion-icon name="cart"></ion-icon>
-      </ion-button>
-      <!-- </ion-buttons> -->
-    </ion-title>
+  <ion-toolbar class="padtop" style="background-color: aliceblue;">
+    <img src="/assets/img/logo.png" class="logo" />
   </ion-toolbar>
+  <ion-toolbar class="padtop">
+    <ion-buttons slot="primary">
+      <ion-searchbar placeholder="Search Products"></ion-searchbar>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon name="camera-outline" class="cameraicon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-button slot="primary" class="maincartcount" color="primary" [disabled]="itemsInCart.length<=0"
+      style="margin-right: 5px;">
+      <ion-badge class="badgecolor" *ngIf="itemsInCart.length">{{itemsInCart.length}}</ion-badge>
+      <ion-icon name="cart"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+
+  <div class="toolbar-title">
+    <ion-toolbar class="padtop">
+      <ion-grid>
+        <ion-row class="contentcircle">
+          <ion-col class="setcenter">
+            <div class="circleMenu color1">
+              <ion-icon name="grid" class="iconsize"></ion-icon>
+            </div>
+            <div class="title">Categories</div>
+          </ion-col>
+          <ion-col class="setcenter">
+            <div class="circleMenu color2">
+              <ion-icon name="star-half" class="iconsize"></ion-icon>
+            </div>
+            <div class="title">Coins & Coupon</div>
+          </ion-col>
+          <ion-col class="setcenter">
+            <div class="circleMenu color3">
+              <ion-icon name="gift" class="iconsize"></ion-icon>
+            </div>
+            <div class="title">Freebies</div>
+          </ion-col>
+          <ion-col class="setcenter">
+            <div class="circleMenu color4">
+              <ion-icon name="mail-open" class="iconsize"></ion-icon>
+            </div>
+            <div class="title">get $20</div>
+          </ion-col>
+          <ion-col class="setcenter">
+            <div class="circleMenu color5">
+              <ion-icon name="cash" class="iconsize"></ion-icon>
+            </div>
+            <div class="title">Coupon pals</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
@@ -30,37 +70,35 @@
     </ion-item>  
   </ion-list> -->
   <ion-grid>
-    <ion-row>
-      <ion-col col-6>
-        <ion-card *ngFor="let item of items">
-          <!-- <ion-img src="..\assets\img\product\MacBook_Pro_15_inch.jpg"></ion-img> -->
-          <ion-img src={{item.imgPath}}></ion-img>
-
-          <ion-card-header>
-            <ion-card-subtitle>{{item.price}}</ion-card-subtitle>
-            <ion-card-title>{{item.name}}</ion-card-title>
+    <ion-row wrap>
+      <ion-col size=6 *ngFor="let item of newproductList">
+        <ion-card class="collist">
+          <ion-img src={{item.imgPath}} class="listimg"></ion-img>
+          <ion-card-header class="setpad">
+            <ion-card-subtitle class="subfontsize">{{item.name}}</ion-card-subtitle>
+            <ion-card-title class="titlefontsize">${{item.price}}</ion-card-title>
           </ion-card-header>
 
-          <ion-card-content style="float: right;">
-
-            <ion-button [disabled]="item.quantityInCart<=0" (click)="removeToCart(item)" title="Remove from Cart">
+          <ion-card-content style="padding: 2px;">
+            <ion-button class="setpadbutton" color="primary" [disabled]="item.quantityInCart<=0"
+              (click)="removeToCart(item)" title="Remove from Cart">
               <ion-icon name="remove"></ion-icon>
               <ion-icon name="cart"></ion-icon>
             </ion-button>
 
             <ion-button [disabled]="item.quantityInCart<=0" color="light"> {{item.quantityInCart}}</ion-button>
 
-            <ion-button color="primary" (click)="addToCart(item)" title="Add to Cart">
+            <ion-button class="setpadbutton" color="primary" (click)="addToCart(item)" title="Add to Cart">
               <ion-icon name="add"></ion-icon>
               <ion-icon name="cart"></ion-icon>
             </ion-button>
 
           </ion-card-content>
-
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
+
   <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content loadingSpinner="lines" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
