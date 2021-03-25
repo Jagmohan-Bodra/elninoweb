@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ModalController } from '@ionic/angular';
 import { DataService } from '../services/common.service';
 import { LoaderService } from '../shared/LoaderService';
-import { IonInfiniteScroll } from '@ionic/angular';
+
+import { ModalCartPage } from '../modal/modal-cart/modal-cart.page';
 
 @Component({
   selector: 'app-tab1',
@@ -12,15 +14,18 @@ import { IonInfiniteScroll } from '@ionic/angular';
 })
 
 export class Tab1Page implements OnInit, OnDestroy {
+  modelData: any;
   items: any[] = [];
   datalist: any[] = [];
   products = [];
   newproductList = [];
   index: number = 0;
+  loadCounter: number = 0;
+  maxLoadItem: number = 6;
   itemsInCart: Object[] = [];
   destroy$: Subject<boolean> = new Subject<boolean>();
-  //@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  constructor(private dataService: DataService, private ionLoader: LoaderService) { }
+  
+  constructor(private dataService:DataService, private ionLoader: LoaderService, public modalController: ModalController) {}
 
   ngOnInit() {
     this.ionLoader.showLoader();
@@ -32,6 +37,7 @@ export class Tab1Page implements OnInit, OnDestroy {
         var producURL = data;
 
         this.products = data;
+
         this.loadData(false, "");
       },
         error => {
@@ -56,12 +62,22 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   loadData(isMoreLoad, event) {
-    if (isMoreLoad) {
-      event.target.complete();
-    }
-    else {
+    this.loadCounter=0;
       setTimeout(() => {
-        for (let i = this.index; i < this.products.length; i++) {
+        
+        if(this.index>=this.products.length)
+        {
+          if(event!="")
+          {
+            event.target.complete();
+             // disable the infinite scroll after loading all data
+            event.target.disabled = true;
+            return;
+          }
+
+        }
+        for (let i = this.index; i < this.index+this.maxLoadItem; i++) {
+          if(this.products[i]==undefined) continue;
           this.items.push(this.products[i]);
           var productId = this.items[i].id;
 
@@ -77,10 +93,7 @@ export class Tab1Page implements OnInit, OnDestroy {
               var newJSON = JSON.stringify(data2);
               var newobj = JSON.parse(newJSON);
               var productPrice = newobj.incl_tax;
-              //this.items[i].url = imageURL;
-              //this.products = data;
-              //this.loadData(false, "");   
-
+              
               var product = {
                 "name": this.products[i].title,
                 "price": productPrice,
@@ -89,7 +102,24 @@ export class Tab1Page implements OnInit, OnDestroy {
                 "quantityInCart": 0
               };
               this.newproductList.push(product);
+              this.loadCounter+=1;
+                          
+              if (!isMoreLoad) {
+                if((this.loadCounter==this.maxLoadItem)||(this.newproductList.length >= this.products.length)) 
+                this.ionLoader.hideLoader();
+              } 
+              else
+              {                     
+                if((this.loadCounter==this.maxLoadItem)||(this.newproductList.length >= this.products.length))
+                {
+                  event.target.complete();
+                }                   
+                // disable the infinite scroll after loading all data
+                if (this.newproductList.length >= this.products.length) {
+                  event.target.disabled = true;
+                }
 
+              }          
             },
               error => {
                 console.log('oops', error);
@@ -101,38 +131,13 @@ export class Tab1Page implements OnInit, OnDestroy {
               console.log('oops', error);
               this.ionLoader.hideLoader();
             });
-
-
-          // this.newproductList.forEach(element => {
-          //   this.dataService.getProductPrice(element).pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
-          //     //console.log(data);
-          //     var myJSON = JSON.stringify(data);
-          //     var obj = JSON.parse(myJSON);
-          //     productPrice = obj.incl_tax;
-          //     //this.items[i].url = imageURL;
-          //     //this.products = data;
-          //     //this.loadData(false, "");   
-
-          //   },
-          //     error => {
-          //       console.log('oops', error);
-          //       this.ionLoader.hideLoader();
-          //     });
-          //   console.log('newloop');
-          // });
-
-
-          //var productPrice = this.callProductPrice(productId);
-
+          
         }
-        this.index = this.products.length;
-
-        // disable the infinite scroll after loading all data
-        if (this.items.length >= this.products.length) {
-          event.target.disabled = true;
-        }
+       
+        this.index = this.index+this.maxLoadItem;      
+    
       }, 1000);
-    }
+    
   }
 
   // callProductImage(productId) {
@@ -181,10 +186,28 @@ export class Tab1Page implements OnInit, OnDestroy {
       const index: number = this.itemsInCart.indexOf(item);
       if (index !== -1) {
         this.itemsInCart.splice(index, 1);
-      }
-    }
-
+    }    
   }
+  
+}
+
+async openIonModal() {
+  const modal = await this.modalController.create({
+    component: ModalCartPage,
+    componentProps: {
+      'model_title': "Add Item to precess"
+    }
+  });
+
+  modal.onDidDismiss().then((modelData) => {
+    if (modelData !== null) {
+      this.modelData = modelData.data;
+      console.log('Modal Data : ' + modelData.data);
+    }
+  });
+
+  return await modal.present();
+}
   ngOnDestroy() {
     this.destroy$.next(true);
     // Unsubscribe from the subject

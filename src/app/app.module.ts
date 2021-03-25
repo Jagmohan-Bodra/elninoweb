@@ -13,12 +13,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { BsModalModule } from 'ng2-bs3-modal';
 
 import { GlobalService } from './shared/global';
+import { ModalCartPageModule } from './modal/modal-cart/modal-cart.module';
+import { ValidationMesaage } from './validation/ValidationMessage';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), BsModalModule, AppRoutingModule, HttpClientModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, GlobalService],
+  imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), BsModalModule, AppRoutingModule, HttpClientModule,ModalCartPageModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, GlobalService, ValidationMesaage],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
