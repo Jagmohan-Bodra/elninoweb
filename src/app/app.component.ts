@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   navigate: any;
 
-  constructor() { }
+  constructor(private navCtrl:NavController) {
+    this.navCtrl.navigateRoot('login')
+  }
   sideMenu() {
     this.navigate =
       [

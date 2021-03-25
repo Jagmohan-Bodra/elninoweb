@@ -1,7 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 @Injectable()
 export class GlobalService {
-  resourceBaseUrl: string = "";
+  resourceBaseUrl: string = ""; 
+  tokenObject:any[];
+  tokenValue:string="";
   hostURL: string = "";
   UserId: number = 0;
   UserType: number = 0;

@@ -124,14 +124,40 @@ export class DataService {
     }
   }
 
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
-    })
-  }
+     // Http Options
+  // httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Access-Control-Allow-Origin':'*'
+  //   })
+  // }
+  GetLoginToElninohub(userData): Observable<any>{
+  
+    var jsonData = { 'username': userData.emailId, 'password': userData.password };
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
 
-  GetProductList() {
+    //return  this.httpClient.post(this.globalService.resourceBaseUrl + "api-token-auth/",JSON.stringify(jsonData),httpOptions).pipe(catchError(this.handleError));
+  
+    return  this.httpClient.post(this.globalService.resourceBaseUrl + "login/",JSON.stringify(jsonData),httpOptions).pipe(catchError(this.handleError));
+   
+  }
+  RegisterToElninohub(userData): Observable<any>{
+  
+    var jsonData = { 'email': userData.emailId, 'password1': userData.password ,'password2': userData.confirmPassword};
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return  this.httpClient.post(this.globalService.resourceBaseUrl + "register/",JSON.stringify(jsonData),httpOptions).pipe(catchError(this.handleError));
+   
+  }
+  
+  GetProductList(){
 
     return this.httpClient.get(this.globalService.resourceBaseUrl + "products/").pipe(catchError(this.handleError));
   }
