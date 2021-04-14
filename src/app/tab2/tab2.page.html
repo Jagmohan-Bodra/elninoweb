@@ -1,11 +1,14 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="padtop" style="background-color: aliceblue;">
+  <ion-toolbar class="padtop keepcenter" style="background-color: aliceblue;">
     <img src="/assets/img/logo.png" class="logo" />
   </ion-toolbar>
   <ion-toolbar class="padtop">
-    <ion-buttons slot="primary">
-      <ion-searchbar placeholder="Search Products"></ion-searchbar>
-    </ion-buttons>
+    <div class="search ion-padding">
+      <ion-item lines="none">
+        <ion-input placeholder="Search Your Product"></ion-input>
+        <ion-icon name="search-outline" slot="start"></ion-icon>
+      </ion-item>
+    </div>
     <ion-buttons slot="primary">
       <ion-button>
         <ion-icon name="camera-outline" class="cameraicon"></ion-icon>
@@ -16,11 +19,11 @@
       <ion-icon name="cart"></ion-icon>
     </ion-button> -->
   </ion-toolbar>
-  <ion-toolbar>
+  <!-- <ion-toolbar>
     <ion-title>
       Feeds
     </ion-title>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content [fullscreen]="true">

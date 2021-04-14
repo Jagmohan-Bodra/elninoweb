@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { DataService } from '../services/common.service';
 import { LoaderService } from '../shared/LoaderService';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tab1',
@@ -16,11 +18,14 @@ export class Tab1Page implements OnInit, OnDestroy {
   datalist: any[] = [];
   products = [];
   newproductList = [];
+  Allcategories = []
   index: number = 0;
   itemsInCart: Object[] = [];
   destroy$: Subject<boolean> = new Subject<boolean>();
   //@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  constructor(private dataService: DataService, private ionLoader: LoaderService) { }
+  constructor(private dataService: DataService, private ionLoader: LoaderService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.ionLoader.showLoader();
@@ -48,14 +53,26 @@ export class Tab1Page implements OnInit, OnDestroy {
 
     }, 100);
 
-
+    this.loadCategories();
   }
 
   doInfinite(event) {
     this.loadData(true, event);
   }
 
+  loadCategories() {
+    this.dataService.GetAllCetogories().pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
+      console.log(data);
+      this.Allcategories = data;
+    },
+      error => {
+        console.log('oops', error);
+        this.ionLoader.hideLoader();
+      })
+  }
+
   loadData(isMoreLoad, event) {
+
     if (isMoreLoad) {
       event.target.complete();
     }
@@ -82,6 +99,7 @@ export class Tab1Page implements OnInit, OnDestroy {
               //this.loadData(false, "");   
 
               var product = {
+                "id": this.products[i].id,
                 "name": this.products[i].title,
                 "price": productPrice,
                 "description": "mac detail not available",
@@ -191,5 +209,14 @@ export class Tab1Page implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
+  GoToDescriptionPage(id: number) {
+    this.router.navigate(['/description'],
+      {
+        state: {
+          Id: id
+        }
+      }
+    );
+  }
 
 }

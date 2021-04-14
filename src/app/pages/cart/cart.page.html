@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <h1 class="title">Cart</h1>
+
+  <div class="cart-items">
+    <ion-card mode="ios" *ngFor="let item of newproductList">
+      <ion-card-content>
+        <div class="item-img">
+          <img src="{{item.imgPath}}" />
+        </div>
+
+        <div class="item-info">
+          <ion-card-header class="setpad">
+            <ion-card-subtitle class="subfontsize">{{item.name}}</ion-card-subtitle>
+            <ion-card-title class="titlefontsize">${{item.price}}</ion-card-title>
+          </ion-card-header>
+
+          <div class="qty-selector">
+            <ion-button (click)="removeToCart(item)" fill="clear">-</ion-button>
+            <ion-label>{{item.quantityInCart}}</ion-label>
+            <ion-button (click)="addToCart(item)" fill="clear">+</ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+<ion-footer translucent="true" class="ion-no-border" mode="md">
+  <ion-toolbar color="translucent">
+    <ion-button expand="block" class="main-button" routerLink="/checkout" routerDirection="forward">Checkout
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

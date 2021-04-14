@@ -1,18 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="padtop" style="background-color: aliceblue;">
+<ion-header class="headerContainer" [translucent]="true">
+  <ion-toolbar class="padtop keepcenter" style="background-color: aliceblue;">
     <img src="/assets/img/logo.png" class="logo" />
   </ion-toolbar>
   <ion-toolbar class="padtop">
-    <ion-buttons slot="primary">
-      <ion-searchbar placeholder="Search Products"></ion-searchbar>
-    </ion-buttons>
-    <ion-buttons slot="primary">
+    <div class="search ion-padding">
+      <ion-item lines="none">
+        <ion-input placeholder="Search Your Product"></ion-input>
+        <ion-icon name="search-outline" slot="start"></ion-icon>
+      </ion-item>
+    </div>
+    <!-- <ion-buttons slot="primary">
       <ion-button>
         <ion-icon name="camera-outline" class="cameraicon"></ion-icon>
       </ion-button>
-    </ion-buttons>
-    <ion-button slot="primary" class="maincartcount" color="primary" [disabled]="itemsInCart.length<=0"
-      style="margin-right: 5px;">
+    </ion-buttons> -->
+    <ion-button slot="primary" [routerLink]="['/tabs/tab4']" class="maincartcount" color="primary"
+      [disabled]="itemsInCart.length<=0" style="margin-right: 5px;">
       <ion-badge class="badgecolor" *ngIf="itemsInCart.length">{{itemsInCart.length}}</ion-badge>
       <ion-icon name="cart"></ion-icon>
     </ion-button>
@@ -26,31 +29,31 @@
             <div class="circleMenu color1">
               <ion-icon name="grid" class="iconsize"></ion-icon>
             </div>
-            <div class="title">Categories</div>
+            <div class="customTitle">Categories</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color2">
               <ion-icon name="star-half" class="iconsize"></ion-icon>
             </div>
-            <div class="title">Coins & Coupon</div>
+            <div class="customTitle">Coins & Coupon</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color3">
               <ion-icon name="gift" class="iconsize"></ion-icon>
             </div>
-            <div class="title">Freebies</div>
+            <div class="customTitle">Freebies</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color4">
               <ion-icon name="mail-open" class="iconsize"></ion-icon>
             </div>
-            <div class="title">get $20</div>
+            <div class="customTitle">get $20</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color5">
               <ion-icon name="cash" class="iconsize"></ion-icon>
             </div>
-            <div class="title">Coupon pals</div>
+            <div class="customTitle">Coupon pals</div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -59,27 +62,61 @@
   </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="light">
-  <!-- <div class="spin">
-    <ion-spinner name="lines" *ngIf="showSpinner"></ion-spinner>
-  </div> -->
-  <!-- <ion-list>
-    <ion-item *ngFor="let item of items" >
-      <ion-icon name="star"></ion-icon> 
-      <ion-label>{{ item.name }}</ion-label>
-    </ion-item>  
-  </ion-list> -->
+<ion-content class="mainContainer" [fullscreen]="true" color="light">
+
+
+  <div class="title ion-padding">
+    <h2>Categories</h2>
+    <p>See all</p>
+  </div>
+
+  <div class="category-slider ion-padding-start">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slide *ngFor="let item of Allcategories">
+        <ion-col routerLink="/category-page/{{item.id}}">
+          <h4>{{ item.name }}</h4>
+          <div *ngIf="item.image !== null">
+            <img src="{{item.image}}" />
+          </div>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="title ion-padding">
+    <h2 class="font-bold">Featured</h2>
+    <p>See all</p>
+  </div>
+  <div class="product-slider ion-padding-start">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slide *ngFor="let product of newproductList | slice : 0 : 5">
+        <ion-col class="ion-text-left" routerDirection="forward" (click)="GoToDescriptionPage(product.id)">
+          <img src="{{ product.imgPath }}" />
+          <p>${{ product.price }}</p>
+          <h6>{{ product.name }}</h6>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+
+  <div class="title ion-padding">
+    <h2 class="font-bold">All Categories</h2>
+    <p>See all</p>
+  </div>
   <ion-grid>
     <ion-row wrap>
       <ion-col size=6 *ngFor="let item of newproductList">
         <ion-card class="collist">
-          <ion-img src={{item.imgPath}} class="listimg"></ion-img>
+          <div class="fill">
+            <ion-img (click)="GoToDescriptionPage(item.id)" src={{item.imgPath}} class="listimg"></ion-img>
+          </div>
           <ion-card-header class="setpad">
             <ion-card-subtitle class="subfontsize">{{item.name}}</ion-card-subtitle>
             <ion-card-title class="titlefontsize">${{item.price}}</ion-card-title>
           </ion-card-header>
 
-          <ion-card-content style="padding: 2px;">
+          <ion-card-content style="padding-bottom: 15px;">
             <ion-button class="setpadbutton" color="primary" [disabled]="item.quantityInCart<=0"
               (click)="removeToCart(item)" title="Remove from Cart">
               <ion-icon name="remove"></ion-icon>

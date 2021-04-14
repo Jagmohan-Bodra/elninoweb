@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="backbtn" routerLink="/tabs/tab5" routerDirection="back">
+        <img src="../../assets/back.svg" />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="ion-padding container">
+    <h1>Signup</h1>
+
+    <div class="form-container">
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input [(ngModel)]="username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+        <ion-icon name="eye" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="confirm password" [(ngModel)]="confirmpassword"></ion-input>
+        <ion-icon name="eye" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-button expand="block" class="main-button" (click)="signup()">Sign Up</ion-button>
+
+      <div class="sign-up">
+        Already have an account? <ion-button color="dark" fill="clear" routerLink="/tabs/tab5"
+          routerDirection="forward">
+          Sign in</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

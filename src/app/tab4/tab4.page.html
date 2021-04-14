@@ -1,11 +1,14 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="padtop" style="background-color: aliceblue;">
+  <ion-toolbar class="padtop keepcenter" style="background-color: aliceblue;">
     <img src="/assets/img/logo.png" class="logo" />
   </ion-toolbar>
   <ion-toolbar class="padtop">
-    <ion-buttons slot="primary">
-      <ion-searchbar placeholder="Search Products"></ion-searchbar>
-    </ion-buttons>
+    <div class="search ion-padding">
+      <ion-item lines="none">
+        <ion-input placeholder="Search Your Product"></ion-input>
+        <ion-icon name="search-outline" slot="start"></ion-icon>
+      </ion-item>
+    </div>
     <ion-buttons slot="primary">
       <ion-button>
         <ion-icon name="camera-outline" class="cameraicon"></ion-icon>
@@ -16,19 +19,112 @@
       <ion-icon name="cart"></ion-icon>
     </ion-button> -->
   </ion-toolbar>
-  <ion-toolbar>
+
+  <!-- <ion-toolbar>
     <ion-title>
       Cart
     </ion-title>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="medium">Cart Items</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content fullscreen="true">
+  <h1 class="title">Cart</h1>
 
-  <!-- <app-explore-container name="Tab 3 page"></app-explore-container> -->
+  <div class="cart-items">
+    <ion-card mode="ios">
+      <ion-card-content>
+        <div class="item-img">
+          <img src="../../assets/img/product/MacBook Pro.jpg" />
+        </div>
+
+        <div class="item-info">
+          <p>Mac Book</p>
+          <p>Apple</p>
+          <p>$3400.00</p>
+
+          <div class="qty-selector">
+            <ion-button fill="clear">-</ion-button>
+            <ion-label>1</ion-label>
+            <ion-button fill="clear">+</ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card mode="ios">
+      <ion-card-content>
+        <div class="item-img">
+          <img src="../../assets/img/product/MacBook_Pro_15_inch.jpg" />
+        </div>
+
+        <div class="item-info">
+          <p>Macbook air</p>
+          <p>Apple</p>
+          <p>$4400.00</p>
+
+          <div class="qty-selector">
+            <ion-button fill="clear">-</ion-button>
+            <ion-label>1</ion-label>
+            <ion-button fill="clear">+</ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="address">
+    <ion-item lines="none">
+      37/6 A, Delhi , New Delhi
+      <ion-badge slot="end">&nbsp;</ion-badge>
+    </ion-item>
+  </div>
+
+  <hr>
+
+  <div class="cart-total">
+    <ion-item lines="none">
+      <ion-label>Sub Total</ion-label>
+      <ion-label slot="end" class="ion-text-right">$16000.00</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Discount</ion-label>
+      <ion-label slot="end" class="ion-text-right">5%</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Shipping</ion-label>
+      <ion-label slot="end" class="ion-text-right">$10.00</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Total</ion-label>
+      <ion-label slot="end" class="ion-text-right">$16200.00</ion-label>
+    </ion-item>
+  </div>
+  <!-- <div class="cart-items">
+    <ion-card mode="ios" *ngFor="let item of newproductList">
+      <ion-card-content>
+        <div class="fill">
+          <img src="{{item.imgPath}}" />
+        </div>
+
+        <div class="item-info">
+          <ion-card-header class="setpad">
+            <ion-card-subtitle class="subfontsize">{{item.name}}</ion-card-subtitle>
+            <ion-card-title class="titlefontsize">${{item.price}}</ion-card-title>
+          </ion-card-header>
+
+          <div class="qty-selector">
+            <ion-button (click)="removeToCart(item)" fill="clear">-</ion-button>
+            <ion-label>{{item.quantityInCart}}</ion-label>
+            <ion-button (click)="addToCart(item)" fill="clear">+</ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div> -->
 </ion-content>
+<ion-footer translucent="true" class="ion-no-border" mode="md">
+  <ion-toolbar color="translucent">
+    <ion-button expand="block" class="main-button" routerLink="/checkout" routerDirection="forward">Checkout
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
