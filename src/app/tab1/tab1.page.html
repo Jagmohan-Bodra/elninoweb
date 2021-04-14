@@ -74,7 +74,7 @@
     <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
       <ion-slide *ngFor="let item of Allcategories">
         <ion-col routerLink="/category-page/{{item.id}}">
-          <h4>{{ item.name }}</h4>
+          <h4>{{ item.name | slice:0:17 }}</h4>
           <div *ngIf="item.image !== null">
             <img src="{{item.image}}" />
           </div>
@@ -93,7 +93,7 @@
         <ion-col class="ion-text-left" routerDirection="forward" (click)="GoToDescriptionPage(product.id)">
           <img src="{{ product.imgPath }}" />
           <p>${{ product.price }}</p>
-          <h6>{{ product.name }}</h6>
+          <h6>{{ product.name | slice:0:17 }}</h6>
         </ion-col>
       </ion-slide>
     </ion-slides>
@@ -112,7 +112,7 @@
             <ion-img (click)="GoToDescriptionPage(item.id)" src={{item.imgPath}} class="listimg"></ion-img>
           </div>
           <ion-card-header class="setpad">
-            <ion-card-subtitle class="subfontsize">{{item.name}}</ion-card-subtitle>
+            <ion-card-subtitle class="subfontsize">{{item.name | slice:0:17}}</ion-card-subtitle>
             <ion-card-title class="titlefontsize">${{item.price}}</ion-card-title>
           </ion-card-header>
 
