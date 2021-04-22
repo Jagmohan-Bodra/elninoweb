@@ -26,12 +26,75 @@
   </ion-toolbar> -->
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="medium">Feed items</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content fullscreen parallax-header>
 
-  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
+  <div class="header-image"></div>
+
+  <div class="main-content">
+
+    <ion-segment [(ngModel)]="category">
+      <ion-segment-button value="gear">
+        Gear
+      </ion-segment-button>
+      <ion-segment-button value="clothing">
+        Clothing
+      </ion-segment-button>
+      <ion-segment-button value="nutrition">
+        Nutrition
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-card *ngFor="let card of cards">
+
+      <!-- <ion-list>
+        <ion-item *ngFor="let item of items">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="item.src"></ion-img>
+          </ion-thumbnail>
+          <ion-label>{{item.text}}</ion-label>
+        </ion-item>
+      </ion-list> -->
+
+
+      <ion-item>
+        <ion-avatar item-left>
+          <ion-thumbnail slot="start">
+            <ion-img [src]="item.src"></ion-img>
+          </ion-thumbnail>
+        </ion-avatar>
+        <h2>Josh Morony</h2>
+        <p>November 5, 2020</p>
+      </ion-item>
+
+      <img src="http://placehold.it/500x200" />
+
+      <ion-card-content>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s.
+      </ion-card-content>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 Likes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note>
+            11h ago
+          </ion-note>
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+
+  </div>
+
 </ion-content>

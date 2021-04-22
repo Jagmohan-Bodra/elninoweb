@@ -33,10 +33,11 @@ export class Tab1Page implements OnInit, OnDestroy {
     setTimeout(() => {
 
       this.dataService.GetProductList().pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
-        console.log(data);
-        var producURL = data;
+        var myJSON = JSON.stringify(data);
+        var obj = JSON.parse(myJSON);
+        var producURL = obj.results;
 
-        this.products = data;
+        this.products = obj.results;
         this.loadData(false, "");
       },
         error => {
@@ -62,8 +63,9 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   loadCategories() {
     this.dataService.GetAllCetogories().pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
-      console.log(data);
-      this.Allcategories = data;
+      var myJSON = JSON.stringify(data);
+      var obj = JSON.parse(myJSON);
+      this.Allcategories = obj.results;
     },
       error => {
         console.log('oops', error);
