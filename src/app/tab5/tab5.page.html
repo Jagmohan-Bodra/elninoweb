@@ -21,26 +21,26 @@
     </ion-button> -->
   </ion-toolbar>
 
-  <ion-toolbar [color]="isAndroid ? 'primary' : 'light'" no-border-top>
-    <ion-segment [(ngModel)]="account" [color]="isAndroid ? 'light' : 'primary'">
+  <ion-toolbar no-border-top>
+    <ion-segment>
       <ion-segment-button value="profile">
         Profile
       </ion-segment-button>
-      <ion-segment-button value="orders">
+      <!-- <ion-segment-button value="orders">
         Orders
       </ion-segment-button>
       <ion-segment-button value="wallet">
         Wallet
-      </ion-segment-button>
+      </ion-segment-button> -->
     </ion-segment>
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content class="outer-content background">
-  <div [ngSwitch]="account">
+  <div>
 
-    <div padding-top text-center *ngSwitchCase="'profile'">
+    <div padding-top text-center>
       <!-- <ion-chip>
         <ion-avatar>
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
@@ -103,13 +103,13 @@
 
     </div>
 
-    <div padding-top text-center *ngSwitchCase="'orders'">
-      <ion-item>
+    <div padding-top text-center>
+      <!-- <ion-item>
         <ion-avatar slot="start">
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-avatar>
         <ion-label class="userName">{{username}}</ion-label>
-      </ion-item>
+      </ion-item> -->
 
       <ion-grid>
         <ion-row class="contentcircle">
@@ -142,13 +142,13 @@
       <p class="textWhite20">No ORDERS</p>
     </div>
 
-    <div padding-top text-center *ngSwitchCase="'wallet'">
-      <ion-item>
+    <div padding-top text-center>
+      <!-- <ion-item>
         <ion-avatar slot="start">
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-avatar>
         <ion-label class="userName">{{username}}</ion-label>
-      </ion-item>
+      </ion-item> -->
       <p class="textWhite20">My Credit/Debit cards</p>
     </div>
 

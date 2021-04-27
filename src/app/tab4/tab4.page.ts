@@ -36,5 +36,34 @@ export class Tab4Page implements OnInit {
   }
 
 
+  addToCart(item) {
+    var newItem = {
+      "id": item.id,
+      "name": item.name,
+      "price": parseFloat(item.price),
+      "imgPath": item.imgPath,
+      "quantityInCart": 1
+    }
+    this.cartService.addProduct(newItem);
+  }
+
+  removeFromCart(item) {
+    var newItem = {
+      "id": item.id,
+      "name": item.name,
+      "price": parseFloat(item.price),
+      "imgPath": item.imgPath,
+      "quantityInCart": 1
+    }
+    this.cartService.removeProduct(newItem);
+    // if (item.quantityInCart > 0) {
+    //   item.quantityInCart -= 1;
+    //   const index: number = this.itemsInCart.indexOf(item);
+    //   if (index !== -1) {
+    //     this.itemsInCart.splice(index, 1);
+    //   }
+    // }
+
+  }
 
 }

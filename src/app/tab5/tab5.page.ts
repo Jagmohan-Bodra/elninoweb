@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController, NavController } from '@ionic/angular';
 import { AuthenticationService } from '../services/Authentication.service';
+import { TranslateConfigService } from '../services/translate-config.service';
 
 @Component({
   selector: 'app-tab5',
@@ -14,6 +15,7 @@ import { AuthenticationService } from '../services/Authentication.service';
   styleUrls: ['./tab5.page.scss'],
 })
 export class Tab5Page implements OnInit {
+  selectedLanguage: string;
   userData: any;
   userOrders: any;
   username: string = "Guest";
@@ -29,25 +31,31 @@ export class Tab5Page implements OnInit {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public nav: NavController,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private translateConfigService: TranslateConfigService
     //public user: User,
     //public userService: UserService,
     //public camera: Camera
   ) {
-
+    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
   }
 
-  ionViewWillEnter() {
-    if (!this.authenticationService.isAuthenticated()) {
-      this.router.navigate(['login'])
-    }
+  languageChanged() {
+    this.translateConfigService.setLanguage(this.selectedLanguage);
   }
+
+  // ionViewWillEnter() {
+  //   if (!this.authenticationService.isAuthenticated()) {
+  //     this.router.navigate(['login'])
+  //   }
+  // }
 
   ngOnInit() {
     this.userOrders = new Array(10);
-    if (!this.authenticationService.isAuthenticated()) {
-      this.router.navigate(['login'])
-    }
+    // if (!this.authenticationService.isAuthenticated()) {
+    //   this.router.navigate(['login'])
+    // }
+
   }
 
   updatePicture() {

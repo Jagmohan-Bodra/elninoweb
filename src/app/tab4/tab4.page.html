@@ -42,11 +42,11 @@
         <div class="item-info">
           <p>{{item.name | slice:0:20}}</p>
           <!-- <p>Apple</p> -->
-          <p>${{item.price}}</p>
+          <p>${{item.price * item.quantityInCart}}</p>
 
           <div class="qty-selector">
-            <ion-button fill="clear" (click)="removeCart(item)">-</ion-button>
-            <ion-label>1</ion-label>
+            <ion-button fill="clear" (click)="removeFromCart(item)">-</ion-button>
+            <ion-label>{{item.quantityInCart}}</ion-label>
             <ion-button fill="clear" (click)="addToCart(item)">+</ion-button>
           </div>
         </div>

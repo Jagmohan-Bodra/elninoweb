@@ -193,20 +193,18 @@ export class Tab1Page implements OnInit, OnDestroy {
       "quantityInCart": 1
     }
     this.cartService.addProduct(newItem);
-    //item.quantityInCart += 1;
-    //this.itemsInCart.push(item);
   }
 
-  removeToCart(item) {
-    if (item.quantityInCart > 0) {
-      item.quantityInCart -= 1;
-      const index: number = this.itemsInCart.indexOf(item);
-      if (index !== -1) {
-        this.itemsInCart.splice(index, 1);
-      }
-    }
+  // removeToCart(item) {
+  //   if (item.quantityInCart > 0) {
+  //     item.quantityInCart -= 1;
+  //     const index: number = this.itemsInCart.indexOf(item);
+  //     if (index !== -1) {
+  //       this.itemsInCart.splice(index, 1);
+  //     }
+  //   }
 
-  }
+  // }
   ngOnDestroy() {
     this.destroy$.next(true);
     // Unsubscribe from the subject
