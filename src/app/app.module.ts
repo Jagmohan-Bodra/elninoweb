@@ -14,11 +14,16 @@ import { BsModalModule } from 'ng2-bs3-modal';
 
 import { GlobalService } from './shared/global';
 
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AuthenticationService } from './services/authentication.service';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), BsModalModule, AppRoutingModule, HttpClientModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, GlobalService],
+  imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), BsModalModule, AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot(),],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, GlobalService, AuthGuardService, AuthenticationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,18 +1,20 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="headerBG">
     <ion-buttons slot="start">
-      <ion-button color="primary" class="backbtn" routerLink="/" routerDirection="back">
-        <img src="../../assets/back-dark.svg" />
-      </ion-button>
+      <ion-buttons class="backbtn" routerLink="/tabs/tab1" routerDirection="back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-buttons>
     </ion-buttons>
 
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="search-outline" color="dark"></ion-icon>
-      </ion-button>
-      <ion-button class="notification">
+      <ion-button class="notification" routerLink="/tabs/tab3">
         <ion-icon name="notifications-outline" color="dark"></ion-icon>
-        <span>&nbsp;</span>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openCart()">
+        <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+        <ion-icon slot="icon-only" name="cart" class="textWhite"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -22,16 +24,17 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <!-- <ion-row class="favorite-items">
-    <ion-col size="6" class="ion-text-left padding-left0">
-      <img src="../../assets/products/prod-1.png" />
-      <p>$34.00</p>
-      <h6>Women t-shirt</h6>
+  <ion-row class="favorite-items" *ngFor="let item of newproductList">
+
+    <ion-col size="12" class="ion-text-left padding-left0">
+      <img (click)="GoToDescriptionPage(item.id)" src="{{item.imgPath}}" />
+      <p>${{item.price}}</p>
+      <h6>{{ item.name | slice:0:17 }}</h6>
     </ion-col>
-    <ion-col size="6" class="ion-text-left padding-right0">
+    <!-- <ion-col size="6" class="ion-text-left padding-right0">
       <img src="../../assets/products/prod-2.png" />
       <p>$24.00</p>
       <h6>Mens t-shirt</h6>
-    </ion-col>
-  </ion-row> -->
+    </ion-col>     -->
+  </ion-row>
 </ion-content>

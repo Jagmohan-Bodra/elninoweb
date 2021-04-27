@@ -27,8 +27,8 @@ export class GlobalService {
     this.NoRecords = 'No Record Found.';
 
     //this.hostURL = "https://infinite-mountain-21059.herokuapp.com/api/";
-    //this.hostURL = "https://app.elninohub.com:8001/api/";
-    this.hostURL = "http://127.0.0.1:8000/api/";
+    this.hostURL = "https://app.elninohub.com:8001/api/";
+    //this.hostURL = "http://127.0.0.1:8000/api/";
 
 
     // get protocol type

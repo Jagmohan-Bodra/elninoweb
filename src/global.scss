@@ -34,12 +34,12 @@
   padding: 25px;
 }
 .logo{
-  max-width: 150px;
-  margin-top: 15px;
+  max-width: 110px;
+  margin-top: 2px;
 }
 
 .padtop{
-  padding-top:10px;
+  padding-top:1px;
 }
 
 .keepcenter{
@@ -49,12 +49,12 @@ text-align: center;
   padding-top: 1px;
 }
 .search {
-  margin-bottom: 10px;
+  margin-bottom: 1px;
 
   ion-item {
       border-radius: 10px;
       box-shadow: 0px 13px 30px 0px rgba(0, 0, 0, 0.09);
-      padding: 8px;
+      //padding: 8px;
 
       ion-icon {
           margin-right: 16px;
@@ -100,11 +100,15 @@ text-align: center;
 }
 
 .main-button {
-  --background: linear-gradient(90deg, rgba(102,126, 234, 1) 0%, rgba(100, 182, 255, 1) 100%);
+  //--background: linear-gradient(90deg, rgba(102,126, 234, 1) 0%, rgba(100, 182, 255, 1) 100%);
   --box-shadow: none;
   position: relative;
   height: 50px;
   margin-bottom: 15px;
+  --background: #DA4453;  /* fallback for old browsers */
+  --background: -webkit-linear-gradient(to right, #89216B, #DA4453);  /* Chrome 10-25, Safari 5.1-6 */
+  --background: linear-gradient(to right, #89216B, #DA4453); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
 }
 
 .main-button::after {
@@ -165,4 +169,43 @@ ion-toolbar {
           background: var(--ion-color-primary);
       }
   }
+}
+
+.setHeaderBG{
+  //     --background: #2980b9;  /* fallback for old browsers */
+  // --background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);  /* Chrome 10-25, Safari 5.1-6 */
+  // --background: linear-gradient(to right, #2c3e50, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  --background: #2980b9;  /* fallback for old browsers */
+  --background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);  /* Chrome 10-25, Safari 5.1-6 */
+  --background: linear-gradient(to right, #2c3e50, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  }
+
+  .fontBold{
+    font-weight: bold;
+  }
+  .textWhite20{
+    font-size:20px;
+    color:#fff;
+}
+
+.textWhite{
+  color:#fff;
+}
+
+.headerBG{
+  --background: #02AAB0;  /* fallback for old browsers */
+--background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);  /* Chrome 10-25, Safari 5.1-6 */
+--background: linear-gradient(to right, #00CDAC, #02AAB0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+
+ion-badge {
+    color: #fff;
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    border-radius: 100%;
+    background-color: red;
 }

@@ -1,17 +1,18 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="padtop keepcenter" style="background-color: aliceblue;">
+  <ion-toolbar class="padtop keepcenter setHeaderBG" style="background-color: aliceblue;">
     <img src="/assets/img/logo.png" class="logo" />
   </ion-toolbar>
-  <ion-toolbar class="padtop">
+  <ion-toolbar class="padtop setHeaderBG">
     <div class="search ion-padding">
       <ion-item lines="none">
         <ion-input placeholder="Search Your Product"></ion-input>
         <ion-icon name="search-outline" slot="start"></ion-icon>
       </ion-item>
     </div>
-    <ion-buttons slot="primary">
-      <ion-button>
-        <ion-icon name="camera-outline" class="cameraicon"></ion-icon>
+    <ion-buttons slot="end">
+      <ion-button (click)="openCart()">
+        <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+        <ion-icon slot="icon-only" name="cart" class="textWhite"></ion-icon>
       </ion-button>
     </ion-buttons>
     <!-- <ion-button slot="primary" [disabled]="itemsInCart.length<=0" style="margin-right: 5px;">
@@ -34,17 +35,18 @@
 
     <ion-segment [(ngModel)]="category">
       <ion-segment-button value="gear">
-        Gear
+        Cosmetics
       </ion-segment-button>
       <ion-segment-button value="clothing">
-        Clothing
+        Electronics
       </ion-segment-button>
       <ion-segment-button value="nutrition">
-        Nutrition
+        Perfumes
       </ion-segment-button>
     </ion-segment>
 
-    <ion-card *ngFor="let card of cards">
+
+    <ion-card *ngFor="let item of newproductList">
 
       <!-- <ion-list>
         <ion-item *ngFor="let item of items">
@@ -62,15 +64,14 @@
             <ion-img [src]="item.src"></ion-img>
           </ion-thumbnail>
         </ion-avatar>
-        <h2>Josh Morony</h2>
-        <p>November 5, 2020</p>
+        <ion-label>Josh Morony</ion-label>
+        <ion-label>November 5, 2020</ion-label>
       </ion-item>
 
-      <img src="http://placehold.it/500x200" />
+      <img src="{{item.imgPath}}" />
 
       <ion-card-content>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s.
+        {{item.description}}
       </ion-card-content>
 
       <ion-row>

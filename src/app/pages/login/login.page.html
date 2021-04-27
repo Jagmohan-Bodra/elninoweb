@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="backbtn" routerLink="/tabs/tab1" routerDirection="back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding container">
+    <h1>Login</h1>
+
+    <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+      <div class="form-container">
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email" [(ngModel)]="username" required></ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+          Email is required.
+        </span>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+          Please provide valid email id.
+        </span>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input formControlName="password" type="password" [(ngModel)]="password" required></ion-input>
+          <ion-icon name="eye" slot="end"></ion-icon>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+          Password is required.
+        </span>
+
+        <ion-button expand="block" class="main-button" (click)="login()">Log in</ion-button>
+
+        <div class="sign-up">
+          Don't have an account? <ion-button color="dark" fill="clear" routerLink="/signup" routerDirection="forward">
+            Sign
+            up</ion-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

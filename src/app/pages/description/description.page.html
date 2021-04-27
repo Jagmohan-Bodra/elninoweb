@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="headerBG">
     <ion-buttons slot="start">
-      <ion-button color="primary" class="backbtn" routerLink="/" routerDirection="back">
-        <img src="../../assets/back-dark.svg" />
+      <ion-button class="backbtn" routerLink="/tabs/tab1" routerDirection="back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -10,10 +10,16 @@
       <ion-button>
         <ion-icon name="search-outline" color="dark"></ion-icon>
       </ion-button>
-      <ion-button class="notification">
+      <ion-button class="notification" routerLink="/tabs/tab3">
         <ion-icon name="notifications-outline" color="dark"></ion-icon>
         <span>&nbsp;</span>
       </ion-button>
+      <ion-buttons slot="end">
+        <ion-button (click)="openCart()">
+          <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+          <ion-icon slot="icon-only" name="cart" class="textWhite"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -35,13 +41,21 @@
     <h1 class="item-name">{{product.title}}</h1>
 
     <h4 class="price">
-      {{ product.price }}
+      ${{ product.price }}
       <!-- <span class="real-price">$62</span> -->
     </h4>
   </div>
 
   <div class="seperator">
     <hr>
+  </div>
+
+  <div class="">
+    <ion-row>
+      <div>
+        <p>Seller: Elninohub</p>
+      </div>
+    </ion-row>
   </div>
 
   <div class="review">
@@ -88,7 +102,21 @@
   <div class="seperator">
     <hr>
   </div>
-
+  <div class="title ion-padding">
+    <h2 class="font-bold">You may also like</h2>
+    <!-- <p>See all</p> -->
+  </div>
+  <div class="product-slider ion-padding-start sliderBG">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slide *ngFor="let product of newproductList | slice : 0 : 10">
+        <ion-col class="ion-text-left" routerDirection="forward" (click)="GoToDescriptionPage(product.id)">
+          <img src="{{ product.imgPath }}" />
+          <p class="fontBold">${{ product.price }}</p>
+          <h6>{{ product.name | slice:0:17 }}</h6>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+  </div>
   <!-- <div class="variation-selector">
     <div class="sizes" [class.active-variation]="activeVariation == 'size'">
       <div [class.active]="selectedSize == 1" (click)="changeSize(1)">
@@ -121,10 +149,12 @@
 <ion-footer>
   <ion-row>
     <ion-col size="6">
-      <ion-button expand="full" color="light">Add to cart</ion-button>
+      <ion-button expand="full" color="light" (click)="addItemToCart(cartProduct)">Add to cart</ion-button>
     </ion-col>
     <ion-col size="6">
-      <ion-button expand="full" class="buyBtn" routerLink="/tabs/tab4">Buy now</ion-button>
+      <ion-button expand="full" class="buyBtn" routerLink="/tabs/tab4"><span>Buy now
+        </span> (<span>{{product.price}}</span> )
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-footer>

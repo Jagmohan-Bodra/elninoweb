@@ -7,7 +7,22 @@
     margin: auto;
     padding:12px;
 }
+.setHeaderBG{
+//     --background: #2980b9;  /* fallback for old browsers */
+// --background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);  /* Chrome 10-25, Safari 5.1-6 */
+// --background: linear-gradient(to right, #2c3e50, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+--background: #2980b9;  /* fallback for old browsers */
+--background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);  /* Chrome 10-25, Safari 5.1-6 */
+--background: linear-gradient(to right, #2c3e50, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
+}
+.sliderBG{
+background: #4CA1AF;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+padding:20px 0;
+color: #224946;
+}
 .color1{background-color: #e32c02;}
 .color2{background-color: #ecec4b;}
 .color3{background-color: #0fe6e6;}
@@ -38,7 +53,7 @@
 
 .collist{margin: 0px; padding: 1px;}
 
-.subfontsize{font-size: 20px;}
+.subfontsize{font-size: 16px;}
 .titlefontsize{font-weight: bold;}
 .customTitle{font-size: 13px;padding:1px;word-break: break-word}
 .setcenter{text-align: center;}
@@ -91,7 +106,7 @@ ion-menu-button {
         height: 100px;
         margin-right: 10px;
         margin-left: 20px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
 
         ion-col {
             height: 100%;
@@ -126,7 +141,7 @@ ion-menu-button {
 }
 
 .product-slider {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     ion-slide {
         width: 150px;
@@ -171,4 +186,24 @@ ion-col:focus {
 
 .headerContainer{
     --ion-background-image: url('../../assets/img/tab1.jpeg');
+}
+
+ion-badge {
+    color: #fff;
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    border-radius: 100%;
+    background-color: red;
+}
+
+.addCart{
+    --background: #2980b9;  /* fallback for old browsers */
+--background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);  /* Chrome 10-25, Safari 5.1-6 */
+--background: linear-gradient(to right, #2c3e50, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.floatLeft{
+    float: left;
 }

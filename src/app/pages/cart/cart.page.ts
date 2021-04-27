@@ -15,7 +15,7 @@ export class CartPage implements OnInit {
   items: any[] = [];
   datalist: any[] = [];
   cartProducts = [];
-  newproductList = [];
+  private newproductList = [];
   index: number = 0;
   itemsInCart: Object[] = [];
   destroy$: Subject<boolean> = new Subject<boolean>();

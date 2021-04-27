@@ -1,6 +1,6 @@
 .logo{
-    max-width: 150px;
-    margin-left: 25px;
+    max-width: 110px;
+    /*margin-left: 25px;*/
 }
 .cameraicon{font-size: 30px;padding:0px;}
 
@@ -57,4 +57,46 @@ ion-toolbar {
 
 .sign-up ion-button {
     margin: 0;
+}
+
+.circleMenu{
+    text-align: center;
+    font-size: 25px;
+    color: #fff;
+}
+
+.customTitle{
+    font-size: 13px;
+    text-align: center;
+    color: #fff;
+}
+ion-segment-button{
+    font-size: 16px;
+    color: var(--ion-color-medium);
+    border: 0px;
+    border-radius: 0px;
+}
+.segment-button-checked{
+    background: #FFF;
+    color: var(--ion-color-primary);
+    //border-bottom: 3px solid var(--ion-color-primary);
+}
+
+.segmentBG{
+    background:url('../../assets/img/tab5.jpeg') no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+}
+
+ion-content.background{
+    //--background: url('../../assets/img/tab5.jpeg') 0 0/100% 100% no-repeat;
+    --background: #2C3E50;  /* fallback for old browsers */
+--background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+--background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.userName{
+font-size: 30px;
 }
