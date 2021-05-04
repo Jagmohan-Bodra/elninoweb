@@ -69,13 +69,7 @@ export class DataService {
     return this.httpClient.post(this.globalService.resourceBaseUrl + "v1/login/", JSON.parse(data)).pipe(catchError(this.handleError))
   }
   RegisterUser(data: any) {
-    return this.httpClient.post(this.globalService.resourceBaseUrl + "v1/rest-auth/registration/", JSON.parse(data), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT'
-      }
-    }).pipe(catchError(this.handleError))
+    return this.httpClient.post(this.globalService.resourceBaseUrl + "v1/rest-auth/registration/", JSON.parse(data)).pipe(catchError(this.handleError))
   }
 
 

@@ -4,59 +4,104 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { DataService } from '../services/common.service';
 import { ToastController } from '@ionic/angular';
-//import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController, NavController } from '@ionic/angular';
-import { AuthenticationService } from '../services/Authentication.service';
-import { TranslateConfigService } from '../services/translate-config.service';
+import { CartService } from '../services/cart.service';
+
+import { AuthenticationService } from '../services/authentication.service';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { TranslateService } from '@ngx-translate/core';
+import arabicLanguage from "../../assets/i18n/ar.json";
+import defaultLanguage from "../../assets/i18n/en.json";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-tab5',
   templateUrl: './tab5.page.html',
   styleUrls: ['./tab5.page.scss'],
 })
+
 export class Tab5Page implements OnInit {
-  selectedLanguage: string;
+  cart = [];
+  cartItems = [];
   userData: any;
   userOrders: any;
-  username: string = "Guest";
+  username: string = 'Guest';
   password: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
   birthdate: string;
+  userinfo: any;
   account: string = "profile";
   base64Image: any = "http://www.gravatar.com/avatar?d=mm&s=140";
-
+  lang: any;
   constructor(
     private dataService: DataService,
     private router: Router,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public nav: NavController,
+    private cartService: CartService,
+    private nativeStorage: NativeStorage,
+    private translate: TranslateService,
+    public appComponent: AppComponent,
     private authenticationService: AuthenticationService,
-    private translateConfigService: TranslateConfigService
-    //public user: User,
-    //public userService: UserService,
-    //public camera: Camera
   ) {
-    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+    // this.lang = 'en';
+    // this.translate.setDefaultLang('en');
+    // this.translate.use('en');
   }
 
-  languageChanged() {
-    this.translateConfigService.setLanguage(this.selectedLanguage);
-  }
+  switchLanguage() {
+    if (this.lang == 'en') {
+      this.translate.setTranslation('en', defaultLanguage);
+      this.translate.setDefaultLang('en');
+    }
+    else {
+      this.translate.setTranslation('ar', arabicLanguage);
+      this.translate.setDefaultLang('ar');
+    }
 
-  // ionViewWillEnter() {
-  //   if (!this.authenticationService.isAuthenticated()) {
-  //     this.router.navigate(['login'])
-  //   }
-  // }
+    this.appComponent.useLanguage(this.lang);
+  }
 
   ngOnInit() {
-    this.userOrders = new Array(10);
-    // if (!this.authenticationService.isAuthenticated()) {
-    //   this.router.navigate(['login'])
-    // }
+    this.cartItems = this.cartService.getProducts();
+    this.cart = this.cartService.getCart();
+  }
+  openCart() {
+    this.router.navigate(['tabs/tab4']);
+  }
+  // languageChanged() {
+  //   this.translateConfigService.setLanguage(this.selectedLanguage);
+  // }
+
+  getuserdata() {
+    this.nativeStorage.getItem('userInfo')
+      .then(
+        data => console.log(data),
+        error => console.error(error)
+      );
+  }
+
+  ionViewWillEnter() {
+    if (!this.authenticationService.checkToken()) {
+      this.router.navigate(['login']);
+    }
+    else {
+      this.userinfo = this.authenticationService.checkTokenNew();
+      var myJSON = JSON.stringify(this.userinfo);
+      var obj = JSON.parse(myJSON);
+      this.username = obj.user_name;
+    }
 
   }
+
+  //ngOnInit() {
+  //this.userOrders = new Array(10);
+  // if (!this.authenticationService.isAuthenticated()) {
+  //   this.router.navigate(['login'])
+  // }
+
+  //}
 
   updatePicture() {
     // let options = {
@@ -94,12 +139,12 @@ export class Tab5Page implements OnInit {
 
   }
   logout() {
-    //this.userService.logout();
-    //this.nav.setRoot(LoginPage);
+    this.authenticationService.logout();
+    this.router.navigate(['tabs/tab1']);
+    console.log('logout');
   }
 
   support() {
     //this.nav.push(SupportPage);
   }
-
 }

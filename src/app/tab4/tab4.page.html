@@ -9,6 +9,17 @@
         <ion-icon name="search-outline" slot="start"></ion-icon>
       </ion-item>
     </div>
+    <ion-buttons slot="primary">
+      <!-- <ion-item>
+        <ion-label>Language</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="lang" (ionChange)="switchLanguage()">
+          <ion-select-option value="en">English</ion-select-option>
+          <ion-select-option value="ar">عربى</ion-select-option>
+        </ion-select>
+      </ion-item> -->
+      <!-- <span class="textWhite">en</span>
+      <ion-toggle [value]="checked" (ionChange)="Clicked()"></ion-toggle><span class="textWhite">عربى</span> -->
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button>
         <ion-badge *ngIf="Totalcart.length > 0">{{ Totalcart.length }}</ion-badge>
@@ -42,7 +53,7 @@
         <div class="item-info">
           <p>{{item.name | slice:0:20}}</p>
           <!-- <p>Apple</p> -->
-          <p>${{item.price * item.quantityInCart}}</p>
+          <p>SAR {{item.price * item.quantityInCart}}</p>
 
           <div class="qty-selector">
             <ion-button fill="clear" (click)="removeFromCart(item)">-</ion-button>
@@ -55,31 +66,31 @@
   </div>
 
   <span *ngIf="Totalcart.length > 0">
-    <div class="address">
+    <!-- <div class="address">
       <ion-item lines="none">
         37/6 A, Delhi , New Delhi
         <ion-badge slot="end">&nbsp;</ion-badge>
       </ion-item>
-    </div>
+    </div> -->
 
     <hr>
 
     <div class="cart-total">
       <ion-item lines="none">
         <ion-label>Sub Total</ion-label>
-        <ion-label slot="end" class="ion-text-right">$16000.00</ion-label>
+        <ion-label slot="end" class="ion-text-right">SAR {{totalAmount}}</ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-label>Discount</ion-label>
-        <ion-label slot="end" class="ion-text-right">5%</ion-label>
+        <ion-label slot="end" class="ion-text-right">0</ion-label>
       </ion-item>
       <ion-item>
         <ion-label>Shipping</ion-label>
-        <ion-label slot="end" class="ion-text-right">$10.00</ion-label>
+        <ion-label slot="end" class="ion-text-right">SAR {{shippingAmount}}</ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-label>Total</ion-label>
-        <ion-label slot="end" class="ion-text-right">$16200.00</ion-label>
+        <ion-label slot="end" class="ion-text-right">SAR {{amountWithShipping}}</ion-label>
       </ion-item>
     </div>
   </span>
@@ -108,7 +119,8 @@
 </ion-content>
 <ion-footer translucent="true" class="ion-no-border" mode="md">
   <ion-toolbar color="translucent">
-    <ion-button expand="block" class="main-button" routerLink="/checkout" routerDirection="forward">Checkout
+    <ion-button expand="block" class="main-button" routerLink="/shipping-address" routerDirection="forward">Proceed to
+      buy
     </ion-button>
   </ion-toolbar>
 </ion-footer>

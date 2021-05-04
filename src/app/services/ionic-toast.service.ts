@@ -15,7 +15,6 @@ export class IonicToastService {
       message: str,
       duration: 2000
     }).then((toastData) => {
-      //console.log(toastData);
       toastData.present();
     });
   }

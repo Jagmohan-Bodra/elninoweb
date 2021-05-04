@@ -45,16 +45,16 @@ export class LoginPage implements OnInit {
       console.log("Succcess" + data);
       var myJSON = JSON.stringify(data);
       var obj = JSON.parse(myJSON);
-      //this.authenticationService.login(obj.token, this.username)
+      this.authenticationService.login(obj.token, this.username)
       this.openSuccessToast();
-      this.showToast('top');
-      this.ionicToastService.showToast('Succcess');
+      //this.showToast('top');
+      ///this.ionicToastService.showToast('Succcess');
       this.router.navigate(['/tabs/tab1'])
     },
       error => {
         this.openFailToast();
-        this.showToast('top');
-        this.ionicToastService.showToast('Fail');
+        //this.showToast('top');
+        this.ionicToastService.showToast('Error');
         console.log('Something goes wrong', error)
       }
     )

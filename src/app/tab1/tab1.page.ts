@@ -7,7 +7,10 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/Authentication.service';
 import { CartService } from '../services/cart.service';
-
+import { TranslateService } from '@ngx-translate/core';
+import arabicLanguage from "../../assets/i18n/ar.json";
+import defaultLanguage from "../../assets/i18n/en.json";
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -29,10 +32,14 @@ export class Tab1Page implements OnInit, OnDestroy {
   nextURL: string = '';
   prevURL: string = '';
   itemsInCart: Object[] = [];
+  checked: boolean = false;
+  lang: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
   //@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   constructor(private dataService: DataService, private ionLoader: LoaderService,
     private router: Router,
+    private translate: TranslateService,
+    public appComponent: AppComponent,
     private authenticationService: AuthenticationService,
     private cartService: CartService
   ) { }
@@ -47,6 +54,19 @@ export class Tab1Page implements OnInit, OnDestroy {
     console.log("Total :" + this.cartItems);
   }
 
+  Clicked() {
+    this.checked = !this.checked;
+    if (!this.checked) {
+      this.translate.setTranslation('en', defaultLanguage);
+      this.translate.setDefaultLang('en');
+    }
+    else {
+      this.translate.setTranslation('ar', arabicLanguage);
+      this.translate.setDefaultLang('ar');
+    }
+
+    this.appComponent.useLanguage(this.lang);
+  }
   // addItemToCart(product) {
   //   this.cartService.addProduct(product);
   // }
@@ -74,7 +94,8 @@ export class Tab1Page implements OnInit, OnDestroy {
         this.maxLoadItem = Math.round((obj.count / 10) + 1);
 
         this.loadData(false, "");
-        this.authenticationService.isAuthenticated();
+        //this.authenticationService.isAuthenticated();
+        this.ionLoader.hideLoader();
       },
         error => {
           console.log('oops', error);
@@ -127,7 +148,8 @@ export class Tab1Page implements OnInit, OnDestroy {
               "id": this.products[i].id,
               "name": this.products[i].title,
               "price": productPrice,
-              "description": "mac detail not available",
+              "totalPrice": productPrice,
+              "description": "",
               "imgPath": imageURL,
               "quantityInCart": 1
             };
@@ -164,13 +186,19 @@ export class Tab1Page implements OnInit, OnDestroy {
             this.ionLoader.hideLoader();
           });
       }
-
+      this.ionLoader.hideLoader();
       //this.index = this.index + this.maxLoadItem;
 
     }, 500);
 
   }
 
+  showAllCatogories() {
+    this.router.navigate(['all-categories']);
+  }
+  showAllCoupons() {
+    this.router.navigate(['coupons']);
+  }
 
   loadCategories() {
     this.dataService.GetAllCetogories().pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
@@ -189,6 +217,7 @@ export class Tab1Page implements OnInit, OnDestroy {
       "id": item.id,
       "name": item.name,
       "price": parseFloat(item.price),
+      "totalPrice": parseFloat(item.totalPrice),
       "imgPath": item.imgPath,
       "quantityInCart": 1
     }

@@ -3,8 +3,8 @@ import { AnimationController } from '@ionic/angular';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { DataService } from 'src/app/services/common.service';
-import { LoaderService } from 'src/app/shared/LoaderService';
+import { DataService } from '../../services/common.service';
+import { LoaderService } from '../../shared/LoaderService';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
 
@@ -71,20 +71,23 @@ export class DescriptionPage implements OnInit {
 
           var tempproduct = {
             "id": obj.id,
-            "title": obj.title,
+            "name": obj.title,
             "price": productPrice, // obj.attributes[1].value call getProductPrice
             "description": obj.description,
-            "images": obj.images
+            "images": obj.images,
+            "quantityInCart": 1
           };
 
           this.product = tempproduct;
 
           this.cartProduct = {
             "id": obj.id,
-            "title": obj.title,
+            "name": obj.title,
             "price": productPrice, // obj.attributes[1].value call getProductPrice
+            "totalPrice": productPrice,
             "description": obj.description,
             "imgPath": obj.images[0].original,
+            "quantityInCart": 1
           };
 
         },
@@ -93,9 +96,6 @@ export class DescriptionPage implements OnInit {
             this.ionLoader.hideLoader();
           });
 
-
-
-
         this.populateProduct();
       },
         error => {
@@ -103,19 +103,32 @@ export class DescriptionPage implements OnInit {
           this.ionLoader.hideLoader();
         })
 
-
+      this.ionLoader.hideLoader();
     }, 100);
   }
 
-
-
+  openStoreInfo() {
+    this.router.navigate(['seller-info']);
+  }
   openCart() {
     this.router.navigate(['tabs/tab4']);
   }
-
+  addItemToCartBuy(buyitem) {
+    var BuynewItem = {
+      "id": buyitem.id,
+      "name": buyitem.name,
+      "price": parseFloat(buyitem.price),
+      "totalPrice": parseFloat(buyitem.totalPrice),
+      "imgPath": buyitem.imgPath,
+      "quantityInCart": 1
+    }
+    this.cartService.addProduct(BuynewItem);
+    this.router.navigate(['tabs/tab4']);
+  }
   populateProduct() {
 
   }
+
   loadProducts() {
     setTimeout(() => {
       this.dataService.GetProductList().pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
@@ -156,9 +169,10 @@ export class DescriptionPage implements OnInit {
               "id": this.products[i].id,
               "name": this.products[i].title,
               "price": productPrice,
-              "description": "mac detail not available",
+              "totalPrice": productPrice,
+              "description": "",
               "imgPath": imageURL,
-              "quantityInCart": 0
+              "quantityInCart": 1
             };
             this.newproductList.push(product);
 
@@ -247,7 +261,15 @@ export class DescriptionPage implements OnInit {
     this.selectedColor = color;
   }
 
-  addItemToCart(product) {
-    this.cartService.addProduct(product);
+  addItemToCart(item) {
+    var newItem = {
+      "id": item.id,
+      "name": item.name,
+      "price": parseFloat(item.price),
+      "totalPrice": parseFloat(item.totalPrice),
+      "imgPath": item.imgPath,
+      "quantityInCart": 1
+    }
+    this.cartService.addProduct(newItem);
   }
 }

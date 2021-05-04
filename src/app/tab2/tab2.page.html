@@ -9,6 +9,17 @@
         <ion-icon name="search-outline" slot="start"></ion-icon>
       </ion-item>
     </div>
+    <ion-buttons slot="primary">
+      <!-- <ion-item>
+        <ion-label>Language</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="lang" (ionChange)="switchLanguage()">
+          <ion-select-option value="en">English</ion-select-option>
+          <ion-select-option value="ar">عربى</ion-select-option>
+        </ion-select>
+      </ion-item> -->
+      <!-- <span class="textWhite">en</span>
+      <ion-toggle [value]="checked" (ionChange)="Clicked()"></ion-toggle><span class="textWhite">عربى</span> -->
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="openCart()">
         <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>

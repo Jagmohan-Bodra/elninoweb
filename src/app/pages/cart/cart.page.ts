@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoaderService } from 'src/app/shared/LoaderService';
+import { LoaderService } from '../../shared/LoaderService';
 import { DataService } from '../../services/common.service';
 
 

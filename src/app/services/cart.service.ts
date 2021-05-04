@@ -24,7 +24,7 @@ export class CartService {
     var cartItems = tempCartObject;
 
     if (cartItems.length > 0) {
-      //cartItems[0].price = cartItems[0].price;
+      cartItems[0].totalPrice = cartItems[0].totalPrice + cartProduct.price;
       cartItems[0].quantityInCart = cartItems[0].quantityInCart + cartProduct.quantityInCart;
     }
     else {
@@ -41,7 +41,7 @@ export class CartService {
 
     if (cartItem.length > 0) {
       if (cartItem[0].quantityInCart > 1) {
-        //cartItem[0].price = cartItem[0].price - cartProduct.price;
+        cartItem[0].totalPrice = cartItem[0].totalPrice - cartProduct.price;
         cartItem[0].quantityInCart = cartItem[0].quantityInCart - cartProduct.quantityInCart;
       }
       else {

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar class="headerBG">
+    <ion-buttons slot="start">
+      <ion-buttons class="backbtn" routerLink="/tabs/tab1" routerDirection="back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-buttons>
+    </ion-buttons>
+    <div class="padtop keepcenter">
+      <img src=" /assets/img/logo.png" class="logo" />
+    </div>
+    <!-- <ion-buttons slot="end">
+      <ion-button class="notification">
+        <ion-icon name="notifications-outline" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bgCoupons">
+  <h1 class="title textWhite">Coupons</h1>
+  <ion-card class="coupons" mode="ios" *ngFor="let item of coupons">
+    <ion-card-content>
+      <ion-col>
+        <h2 class="textWhite">SAR 10</h2>
+        <h2 class="textWhite">Orders Above SAR 100</h2>
+        <div class="center">
+          <ion-button size="small" class="main-button" ion-item>use now</ion-button>
+        </div>
+      </ion-col>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

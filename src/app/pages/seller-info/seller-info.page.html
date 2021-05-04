@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar class="headerBG">
+    <ion-buttons slot="start">
+      <ion-buttons class="backbtn" routerLink="/tabs/tab1" routerDirection="back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-buttons>
+    </ion-buttons>
+    <div class="padtop keepcenter">
+      <img src=" /assets/img/logo.png" class="logo" />
+    </div>
+    <!-- <ion-buttons slot="end">
+      <ion-button class="notification">
+        <ion-icon name="notifications-outline" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1 class="title">Seller Info</h1>
+  <ion-card class="seller" mode="ios">
+    <ion-card-content>
+      <ion-col>
+        <h2 class="textWhite">Seller Name : {{SellerName}}</h2>
+        <div class="description">
+          <h5>Description</h5>
+          <p></p>
+        </div>
+      </ion-col>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

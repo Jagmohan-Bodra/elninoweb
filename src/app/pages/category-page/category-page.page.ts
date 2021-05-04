@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { DataService } from 'src/app/services/common.service';
-import { LoaderService } from 'src/app/shared/LoaderService';
+import { DataService } from '../../services/common.service';
+import { LoaderService } from '../../shared/LoaderService';
 
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
@@ -121,7 +121,7 @@ export class CategoryPagePage implements OnInit {
             this.ionLoader.hideLoader();
           });
       }
-
+      this.ionLoader.hideLoader();
       //this.index = this.index + this.maxLoadItem;
 
     }, 500);

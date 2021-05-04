@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar class="headerBG">
+    <ion-buttons slot="start">
+      <ion-buttons class="backbtn" routerLink="/tabs/tab1" routerDirection="back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-buttons>
+    </ion-buttons>
+    <div class="padtop keepcenter">
+      <img src=" /assets/img/logo.png" class="logo" />
+    </div>
+    <!-- <ion-buttons slot="end">
+      <ion-button class="notification">
+        <ion-icon name="notifications-outline" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bgCategory">
+  <h1 class="title textWhite">All Categories</h1>
+  <ion-card mode="ios" *ngFor="let item of Allcategories">
+    <ion-card-content>
+      <ion-col routerLink="/category-page/{{item.id}}">
+        <h2>{{ item.name | slice:0:17 }}</h2>
+        <div class="center" *ngIf="item.image !== null">
+          <img class="allImages" src="{{item.image}}" />
+        </div>
+      </ion-col>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

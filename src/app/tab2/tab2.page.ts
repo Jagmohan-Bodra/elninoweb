@@ -6,7 +6,10 @@ import { Router } from '@angular/router';
 import { DataService } from '../services/common.service';
 import { LoaderService } from '../shared/LoaderService';
 import { CartService } from '../services/cart.service';
-
+import { TranslateService } from '@ngx-translate/core';
+import arabicLanguage from "../../assets/i18n/ar.json";
+import defaultLanguage from "../../assets/i18n/en.json";
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -23,11 +26,15 @@ export class Tab2Page implements OnInit {
   productItem: number = 10;
   private newproductList = [];
   products = [];
+  checked: boolean = false;
+  lang: any;
   constructor(
     private router: Router,
     public navCtrl: NavController,
     private dataService: DataService,
     private cartService: CartService,
+    private translate: TranslateService,
+    public appComponent: AppComponent,
     private ionLoader: LoaderService) {
     this.cards = new Array(10);
     this.loadProducts();
@@ -36,6 +43,19 @@ export class Tab2Page implements OnInit {
   ngOnInit() {
     this.cartItems = this.cartService.getProducts();
     this.cart = this.cartService.getCart();
+  }
+  Clicked() {
+    this.checked = !this.checked;
+    if (!this.checked) {
+      this.translate.setTranslation('en', defaultLanguage);
+      this.translate.setDefaultLang('en');
+    }
+    else {
+      this.translate.setTranslation('ar', arabicLanguage);
+      this.translate.setDefaultLang('ar');
+    }
+
+    this.appComponent.useLanguage(this.lang);
   }
   openCart() {
     this.router.navigate(['tabs/tab4']);

@@ -1,26 +1,51 @@
 <ion-header>
-  <ion-toolbar>
-
+  <ion-toolbar class="headerBG">
+    <div class="padtop keepcenter">
+      <img src=" /assets/img/logo.png" class="logo" />
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="confirmation">
-    <div class="ion-text-center">
+  <span *ngIf="resultMassege=='Payment was not successful'; else successDiv">
+    <div class="confirmation">
+      <div class="ion-text-center">
 
-      <div class="outer-circle">
-        <div class="inner-circle">
-          <img src="../../assets/like.png" />
+        <div class="outer-circle">
+          <div class="inner-circle">
+            <img src="../../assets/dislike.png" />
+          </div>
         </div>
-      </div>
 
-      <h2>Confirmation</h2>
-      <p>
-        You have successfully <br>
-        completed your payment procedure
-      </p>
+        <!-- <h2>Confirmation</h2>
+        <p>
+          You have successfully <br>
+          completed your payment procedure
+        </p> -->
+        <h3>{{resultMassege}}</h3>
+      </div>
     </div>
-  </div>
+  </span>
+  <span *ngIf="resultMassege=='Payment was successful'">
+    <div class="confirmation">
+      <div class="ion-text-center">
+
+        <div class="outer-circle">
+          <div class="inner-circle">
+            <img src="../../assets/like.png" />
+          </div>
+        </div>
+
+        <h2>Confirmation</h2>
+        <p>
+          You have successfully <br>
+          completed your payment procedure
+        </p>
+        <h3>{{resultMassege}}</h3>
+      </div>
+    </div>
+  </span>
+
 </ion-content>
 <ion-footer translucent="true" class="ion-no-border" mode="md">
   <ion-toolbar color="translucent">

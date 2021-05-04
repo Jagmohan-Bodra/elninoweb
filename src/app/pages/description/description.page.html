@@ -38,10 +38,10 @@
   </ion-slides>
 
   <div class="ion-padding-vertical">
-    <h1 class="item-name">{{product.title}}</h1>
+    <h1 class="item-name">{{product.name}}</h1>
 
     <h4 class="price">
-      ${{ product.price }}
+      SAR{{ product.price }}
       <!-- <span class="real-price">$62</span> -->
     </h4>
   </div>
@@ -149,10 +149,15 @@
 <ion-footer>
   <ion-row>
     <ion-col size="6">
-      <ion-button expand="full" color="light" (click)="addItemToCart(cartProduct)">Add to cart</ion-button>
+      <ion-row>
+        <ion-button expand="small" class="storeBtn" (click)="openStoreInfo()" color="light">
+          <img class="storeimg" src="./assets/store.png" />
+        </ion-button>
+        <ion-button expand="small" color="light" (click)="addItemToCart(cartProduct)"> Add to cart</ion-button>
+      </ion-row>
     </ion-col>
     <ion-col size="6">
-      <ion-button expand="full" class="buyBtn" routerLink="/tabs/tab4"><span>Buy now
+      <ion-button expand="full" class="buyBtn" (click)="addItemToCartBuy(cartProduct)"><span>Buy now
         </span> (<span>{{product.price}}</span> )
       </ion-button>
     </ion-col>

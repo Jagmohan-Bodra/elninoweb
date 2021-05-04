@@ -22,17 +22,31 @@
   </ion-toolbar>
 
   <ion-toolbar no-border-top>
-    <ion-segment>
+    <ion-item>
+      <ion-label>Language</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="lang" (ionChange)="switchLanguage()">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="ar">عربى</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label>Language</ion-label>
+      <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
+        <ion-option value="en">English</ion-option>
+        <ion-option value="ar">Arabic(عربى)</ion-option>
+      </ion-select>
+    </ion-item> -->
+    <!-- <ion-segment>
       <ion-segment-button value="profile">
         Profile
       </ion-segment-button>
-      <!-- <ion-segment-button value="orders">
+      <ion-segment-button value="orders">
         Orders
       </ion-segment-button>
       <ion-segment-button value="wallet">
         Wallet
-      </ion-segment-button> -->
-    </ion-segment>
+      </ion-segment-button>
+    </ion-segment> -->
   </ion-toolbar>
 
 </ion-header>
@@ -55,10 +69,10 @@
         <ion-label class="userName">{{username}}</ion-label>
       </ion-item>
 
-      <ion-list inset>
-        <button ion-item (click)="updatePicture()">Update Picture</button>
+      <ion-list>
+        <!-- <button ion-item (click)="updatePicture()">Update Picture</button> -->
         <!-- <button ion-item (click)="addDOB()">Update Birth Date</button> -->
-        <button ion-item (click)="logout()">Logout</button>
+        <ion-button size="small" class="main-button" ion-item (click)="logout()">Logout</ion-button>
       </ion-list>
 
       <!-- <div class="product-slider ion-padding-start">
@@ -78,25 +92,25 @@
             <div class="circleMenu color1">
               <ion-icon name="heart" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">Wish List</div>
+            <div class="customTitle">{{'WISH LIST' | translate }}</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color2">
               <ion-icon name="star" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">Following</div>
+            <div class="customTitle">{{'FOLLOWING' | translate}}</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color3">
               <ion-icon name="gift" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">Viewed</div>
+            <div class="customTitle">{{'VIEWED' | translate}}</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color5">
               <ion-icon name="cash" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">Coupons</div>
+            <div class="customTitle">{{'COUPONS' | translate}}</div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -117,29 +131,29 @@
             <div class="circleMenu color1">
               <ion-icon name="grid" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">Unpaid</div>
+            <div class="customTitle">{{ 'UNPAID' | translate }}</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color2">
               <ion-icon name="star-half" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">To be shipped</div>
+            <div class="customTitle">{{ 'TO BE SHIPPED' | translate }}</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color3">
               <ion-icon name="gift" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">Shipped</div>
+            <div class="customTitle">{{ 'SHIPPED' | translate }}</div>
           </ion-col>
           <ion-col class="setcenter">
             <div class="circleMenu color5">
               <ion-icon name="cash" class="iconsize"></ion-icon>
             </div>
-            <div class="customTitle">To be reviewed</div>
+            <div class="customTitle">{{ 'TO BE REVIEWED' | translate }}</div>
           </ion-col>
         </ion-row>
       </ion-grid>
-      <p class="textWhite20">No ORDERS</p>
+      <p class="textWhite20">{{ 'NO ORDERS' | translate }}</p>
     </div>
 
     <div padding-top text-center>
@@ -149,7 +163,7 @@
         </ion-avatar>
         <ion-label class="userName">{{username}}</ion-label>
       </ion-item> -->
-      <p class="textWhite20">My Credit/Debit cards</p>
+      <p class="textWhite20">{{ 'MY CREDIT/DEBIT CARDS' | translate }}</p>
     </div>
 
   </div>

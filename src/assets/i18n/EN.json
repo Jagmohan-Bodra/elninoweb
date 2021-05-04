@@ -1,6 +1,27 @@
 {
-    "HOME": {
-        "Categories": "Categories",
-        "See All": "See All"
-    }
+    "CATEGORIES": "Categories",
+    "SEE ALL": "See All",
+    "FEATURED": "Featured",
+    "ALL CATEGORIES": "All Categories",
+    "COINS & COUPONS": "Coins & Coupons",
+    "FREEBIES": "Freebies",
+    "GET $20": "Get $20",
+    "COUPON PALS": "Coupons Pals",
+    "UNPAID": "Unpaid",
+    "TO BE SHIPPED": "To be shipped",
+    "SHIPPED": "Shipped",
+    "TO BE REVIEWED": "To be reviewed",
+    "WISH LIST": "Wish List",
+    "FOLLOWING": "Following",
+    "VIEWED": "Viewed",
+    "COUPONS": "Coupons",
+    "NO ORDERS": "No Orders",
+    "MY CREDIT/DEBIT CARDS": "My Credit/Debit Cards",
+    "SEARCH YOUR PRODUCTS": "Search your products",
+    "HOME": "Home",
+    "FEEDS": "Feeds",
+    "NOTIFICATIONS": "Notifications",
+    "CART": "Cart",
+    "ACCOUNT": "Account",
+    "ADD TO": "ADD TO"
 }

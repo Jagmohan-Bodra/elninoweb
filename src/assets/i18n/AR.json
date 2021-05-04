@@ -1,6 +1,27 @@
 {
-    "HOME": {
-        "Categories": "فئات",
-        "See All": "شاهد الكل"
-    }
+    "CATEGORIES": "فئات",
+    "SEE ALL": "شاهد الكل",
+    "FEATURED": "متميز",
+    "ALL CATEGORIES": "جميع الفئات",
+    "COINS & COUPONS": "عملات وكوبونات",
+    "FREEBIES": "مجانا",
+    "GET $20": "احصل على 20 دولارا",
+    "COUPON PALS": "كوبونات الاصدقاء",
+    "UNPAID": "غير مدفوعه",
+    "TO BE SHIPPED": "سيتم شحنها",
+    "SHIPPED": "تم شحنها",
+    "TO BE REVIEWED": "سيتم مراجعتها",
+    "WISH LIST": "قائمة الأمنيات",
+    "FOLLOWING": "المتابعه",
+    "VIEWED": "مشاهده",
+    "COUPONS": "الكوبونات",
+    "NO ORDERS": "لا توجد طلبات",
+    "MY CREDIT/DEBIT CARDS": "بطاقات الائتمان/الخصم الخاصة بي",
+    "SEARCH YOUR PRODUCTS": "البحث في منتجاتك",
+    "HOME": "الرئيسية",
+    "FEEDS": "التعليقات",
+    "NOTIFICATIONS": "التنبيهات",
+    "CART": "عَرَبَة التسوق",
+    "ACCOUNT": "حساب",
+    "ADD TO": "إضافة إلى"
 }
