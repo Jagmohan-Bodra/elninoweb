@@ -13,29 +13,19 @@
   <div class="ion-padding container">
     <h1>Login</h1>
 
-    <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" novalidate>
       <div class="form-container">
         <ion-item>
           <ion-label position="floating">Email</ion-label>
-          <ion-input formControlName="email" [(ngModel)]="username" required></ion-input>
+          <ion-input [formControl]="loginForm.controls['email']" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" type="email" placeholder="your@email.com" autocomplete="off" ngModel required></ion-input>
         </ion-item>
-        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
-          Email is required.
-        </span>
-        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
-          Please provide valid email id.
-        </span>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input formControlName="password" type="password" [(ngModel)]="password" required></ion-input>
-          <ion-icon name="eye" slot="end"></ion-icon>
+          <ion-input [formControl]="loginForm.controls['password']" name="password" [type]="show ? 'text' : 'password'" ngModel required></ion-input>
+          <ion-icon name="eye" slot="end" (click)="showPassword()"></ion-icon>
         </ion-item>
-        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-          Password is required.
-        </span>
-
-        <ion-button expand="block" class="main-button" (click)="login()">Log in</ion-button>
-
+        <ion-button type="submit" [disabled]="loginForm.invalid" expand="block" class="main-button">Log in</ion-button>
+        
         <div class="sign-up">
           Don't have an account? <ion-button color="dark" fill="clear" routerLink="/signup" routerDirection="forward">
             Sign

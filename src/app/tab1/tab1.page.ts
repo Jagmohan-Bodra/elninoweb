@@ -22,7 +22,6 @@ export class Tab1Page implements OnInit, OnDestroy {
   products = [];
   private AllProductsList = [];
   Allcategories = []
-  index: number = 0;
   loadCounter: number = 0;
   maxLoadItem: number;
   productItem: number = 10;
@@ -56,10 +55,22 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   doInfinite(event) {
-    setTimeout(() => {
-      this.loadNextProducts(true, event);
-      event.target.complete();
-    }, 6000)
+    if(this.loadCounter>=this.maxLoadItem)
+        {
+          if(event!="")
+          {
+            event.target.complete();
+             // disable the infinite scroll after loading all data
+            event.target.disabled = true;
+            return;
+          }
+
+        }
+        else
+        {
+          this.loadNextProducts(true, event);
+        }
+   
   }
 
   loadProducts() {
@@ -71,8 +82,9 @@ export class Tab1Page implements OnInit, OnDestroy {
         this.prevURL = obj.previous;
         this.products = obj.results;
         this.productItem = obj.results.length;
-        this.maxLoadItem = Math.round((obj.count / 10) + 1);
+        this.maxLoadItem = obj.count;
 
+        this.loadCounter=obj.results.length;
         this.loadData(false, "");
         this.authenticationService.isAuthenticated();
       },
@@ -91,8 +103,8 @@ export class Tab1Page implements OnInit, OnDestroy {
         this.products = obj.results;
         this.nextURL = obj.next;
         this.productItem = obj.results.length;
-        this.items = [];
-        this.loadData(false, "");
+        this.loadCounter= this.loadCounter +obj.results.length;
+        this.loadData(isMoreLoad, event);
       },
         error => {
           console.log('oops', error);
@@ -102,21 +114,19 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   loadData(isMoreLoad, event) {
-
+    var pushitemcount=0;
     setTimeout(() => {
-
-      for (let i = this.index; i < this.index + this.productItem; i++) {
-        //if (this.products[i] == undefined) continue;
-        this.items.push(this.products[i]);
-        var productId = this.items[i].id;
+      for (let i = 0; i < this.productItem; i++) {
+       
+        var productId = this.products[i].id;
 
         this.dataService.getProductDetails(productId).pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
-          //console.log(data);
-          var tempProdcutId = productId;
+
           var myJSON = JSON.stringify(data);
-          var obj = JSON.parse(myJSON);
-          var imageURL = obj.images[0].original;
+          var obj = JSON.parse(myJSON);       
           var imageId = obj.id;
+          
+          var imageURL = obj.images[0]==undefined?"":obj.images[0].original;
           this.dataService.getProductPrice(imageId).pipe(takeUntil(this.destroy$)).subscribe((data2: any[]) => {
             //console.log(data2);
             var newJSON = JSON.stringify(data2);
@@ -132,26 +142,21 @@ export class Tab1Page implements OnInit, OnDestroy {
               "quantityInCart": 1
             };
             this.AllProductsList.push(product);
+             pushitemcount=pushitemcount+1;
 
-            if (isMoreLoad)
-              event.target.complete();
+            if (!isMoreLoad) {
+              if((pushitemcount==this.productItem)||(this.AllProductsList.length >= this.maxLoadItem)) 
+              this.ionLoader.hideLoader();
+            } 
+            else
+            {   
+              if((pushitemcount==this.productItem)) 
+              {
+                event.target.complete();
+              }
+            
+            }   
 
-            this.loadCounter += 1;
-
-            // if (isMoreLoad) {
-            //   if ((this.loadCounter == this.maxLoadItem) || (this.newproductList.length >= this.products.length))
-            //     this.ionLoader.hideLoader();
-            // }
-            // else {
-            //   if ((this.loadCounter == this.maxLoadItem) || (this.newproductList.length >= this.products.length)) {
-            //     event.target.complete();
-            //   }
-            //   // disable the infinite scroll after loading all data
-            //   if (this.nextURL == null) {
-            //     event.target.disabled = true;
-            //   }
-
-            // }
           },
             error => {
               console.log('oops', error);
@@ -164,8 +169,6 @@ export class Tab1Page implements OnInit, OnDestroy {
             this.ionLoader.hideLoader();
           });
       }
-
-      //this.index = this.index + this.maxLoadItem;
 
     }, 500);
 

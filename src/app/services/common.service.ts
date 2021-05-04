@@ -65,19 +65,24 @@ export class DataService {
     //return this.httpClient.get(this.globalService.resourceBaseUrl +)
   }
 
-  AuthenticateUser(data: any) {
-    return this.httpClient.post(this.globalService.resourceBaseUrl + "v1/login/", JSON.parse(data)).pipe(catchError(this.handleError))
+  AuthenticateUser(userData: any) {
+    return this.httpClient.post(this.globalService.resourceBaseUrl + "v1/login/", userData).pipe(catchError(this.handleError))
   }
-  RegisterUser(data: any) {
-    return this.httpClient.post(this.globalService.resourceBaseUrl + "v1/rest-auth/registration/", JSON.parse(data), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT'
-      }
-    }).pipe(catchError(this.handleError))
+  RegisterUser(userData: any) {
+    return this.httpClient.post(this.globalService.resourceBaseUrl + "v1/rest-auth/registration/", userData).pipe(catchError(this.signUPhandleError))
   }
+  signUPhandleError(error: HttpErrorResponse) {
+    let errormessage = 'Unknown error!';
+    
+    if (error.error!=null)
+    {
+      errormessage= (error.error["username"]!=undefined?error.error["username"]+ "<br>":"");
+      errormessage+= (error.error["email"]!=undefined?error.error["email"]+ "<br>":"");
+      errormessage+= (error.error["password1"]!=undefined?error.error["password1"]:"");
+    }
 
+    return throwError(errormessage);
+  }
 
 
 }

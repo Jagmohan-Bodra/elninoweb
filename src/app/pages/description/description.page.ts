@@ -65,10 +65,7 @@ export class DescriptionPage implements OnInit {
           var newJSON = JSON.stringify(data2);
           var newobj = JSON.parse(newJSON);
           var productPrice = newobj.incl_tax;
-          //this.items[i].url = imageURL;
-          //this.products = data;
-          //this.loadData(false, "");   
-
+         
           var tempproduct = {
             "id": obj.id,
             "title": obj.title,
@@ -76,6 +73,8 @@ export class DescriptionPage implements OnInit {
             "description": obj.description,
             "images": obj.images
           };
+
+          this.ionLoader.hideLoader();
 
           this.product = tempproduct;
 
