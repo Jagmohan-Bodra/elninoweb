@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ShippingAddressPageRoutingModule } from './shipping-address-routing.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { ShippingAddressPage } from './shipping-address.page';
 
 @NgModule({
@@ -13,8 +13,9 @@ import { ShippingAddressPage } from './shipping-address.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ShippingAddressPageRoutingModule
+    ShippingAddressPageRoutingModule,
+    TranslateModule
   ],
   declarations: [ShippingAddressPage]
 })
-export class ShippingAddressPageModule {}
+export class ShippingAddressPageModule { }

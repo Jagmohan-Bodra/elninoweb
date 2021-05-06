@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { DescriptionPageRoutingModule } from './description-routing.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { DescriptionPage } from './description.page';
 
 @NgModule({
@@ -13,8 +13,9 @@ import { DescriptionPage } from './description.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DescriptionPageRoutingModule
+    DescriptionPageRoutingModule,
+    TranslateModule
   ],
   declarations: [DescriptionPage]
 })
-export class DescriptionPageModule {}
+export class DescriptionPageModule { }

@@ -5,10 +5,14 @@
   <ion-toolbar class="padtop setHeaderBG">
     <div class="search ion-padding">
       <ion-item lines="none">
-        <ion-input placeholder="Search Your Product"></ion-input>
+        <ion-input placeholder="{{'SEARCH PRODUCTS' | translate }}"></ion-input>
         <ion-icon name="search-outline" slot="start"></ion-icon>
       </ion-item>
     </div>
+    <ion-buttons slot="primary">
+      <span class="textWhite">en</span>
+      <ion-toggle [(ngModel)]="checked" (ngModelChange)="Clicked()"></ion-toggle><span class="textWhite">عربى</span>
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="openCart()">
         <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
@@ -21,22 +25,22 @@
     </ion-button> -->
   </ion-toolbar>
 
-  <ion-toolbar no-border-top>
-    <ion-item>
+  <!-- <ion-toolbar no-border-top> -->
+  <!-- <ion-item>
       <ion-label>Language</ion-label>
       <ion-select placeholder="Select One" [(ngModel)]="lang" (ionChange)="switchLanguage()">
         <ion-select-option value="en">English</ion-select-option>
         <ion-select-option value="ar">عربى</ion-select-option>
       </ion-select>
-    </ion-item>
-    <!-- <ion-item>
+    </ion-item> -->
+  <!-- <ion-item>
       <ion-label>Language</ion-label>
       <ion-select [(ngModel)]="lang" (ionChange)="switchLanguage()">
         <ion-option value="en">English</ion-option>
         <ion-option value="ar">Arabic(عربى)</ion-option>
       </ion-select>
     </ion-item> -->
-    <!-- <ion-segment>
+  <!-- <ion-segment>
       <ion-segment-button value="profile">
         Profile
       </ion-segment-button>
@@ -47,7 +51,7 @@
         Wallet
       </ion-segment-button>
     </ion-segment> -->
-  </ion-toolbar>
+  <!-- </ion-toolbar> -->
 
 </ion-header>
 
@@ -72,7 +76,7 @@
       <ion-list>
         <!-- <button ion-item (click)="updatePicture()">Update Picture</button> -->
         <!-- <button ion-item (click)="addDOB()">Update Birth Date</button> -->
-        <ion-button size="small" class="main-button" ion-item (click)="logout()">Logout</ion-button>
+        <ion-button size="small" class="main-button" ion-item (click)="logout()">{{'LOGOUT'|translate}}</ion-button>
       </ion-list>
 
       <!-- <div class="product-slider ion-padding-start">

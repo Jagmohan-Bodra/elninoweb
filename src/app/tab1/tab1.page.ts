@@ -6,10 +6,11 @@ import { LoaderService } from '../shared/LoaderService';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/Authentication.service';
+
 import { CartService } from '../services/cart.service';
 import { TranslateService } from '@ngx-translate/core';
-import arabicLanguage from "../../assets/i18n/ar.json";
-import defaultLanguage from "../../assets/i18n/en.json";
+import { TranslateConfigService } from '../services/translate-config.service';
+import { IonicToastService } from '../services/ionic-toast.service';
 import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-tab1',
@@ -32,7 +33,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   nextURL: string = '';
   prevURL: string = '';
   itemsInCart: Object[] = [];
-  checked: boolean = false;
+  checked = false;
   lang: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
   //@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
@@ -40,7 +41,9 @@ export class Tab1Page implements OnInit, OnDestroy {
     private router: Router,
     private translate: TranslateService,
     public appComponent: AppComponent,
+    public MyTranslate: TranslateConfigService,
     private authenticationService: AuthenticationService,
+    public IonicToast: IonicToastService,
     private cartService: CartService
   ) { }
 
@@ -54,17 +57,26 @@ export class Tab1Page implements OnInit, OnDestroy {
     console.log("Total :" + this.cartItems);
   }
 
-  Clicked() {
-    this.checked = !this.checked;
-    if (!this.checked) {
-      this.translate.setTranslation('en', defaultLanguage);
-      this.translate.setDefaultLang('en');
+  ionViewWillEnter() {
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
+    if (lang == "en") {
+      this.checked = false;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
     }
     else {
-      this.translate.setTranslation('ar', arabicLanguage);
-      this.translate.setDefaultLang('ar');
+      this.checked = true;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
     }
+  }
 
+  Clicked() {
+    //this.checked = !this.checked;
+    this.MyTranslate.setLanguage(this.checked);
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
     this.appComponent.useLanguage(this.lang);
   }
   // addItemToCart(product) {
@@ -76,10 +88,19 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   doInfinite(event) {
-    setTimeout(() => {
+    if (this.loadCounter >= this.maxLoadItem) {
+      if (event != "") {
+        event.target.complete();
+        // disable the infinite scroll after loading all data
+        event.target.disabled = true;
+        return;
+      }
+
+    }
+    else {
       this.loadNextProducts(true, event);
-      event.target.complete();
-    }, 6000)
+    }
+
   }
 
   loadProducts() {
@@ -91,8 +112,9 @@ export class Tab1Page implements OnInit, OnDestroy {
         this.prevURL = obj.previous;
         this.products = obj.results;
         this.productItem = obj.results.length;
-        this.maxLoadItem = Math.round((obj.count / 10) + 1);
+        this.maxLoadItem = obj.count;
 
+        this.loadCounter = obj.results.length;
         this.loadData(false, "");
         //this.authenticationService.isAuthenticated();
         this.ionLoader.hideLoader();
@@ -112,8 +134,8 @@ export class Tab1Page implements OnInit, OnDestroy {
         this.products = obj.results;
         this.nextURL = obj.next;
         this.productItem = obj.results.length;
-        this.items = [];
-        this.loadData(false, "");
+        this.loadCounter = this.loadCounter + obj.results.length;
+        this.loadData(isMoreLoad, event);
       },
         error => {
           console.log('oops', error);
@@ -123,21 +145,19 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   loadData(isMoreLoad, event) {
-
+    var pushitemcount = 0;
     setTimeout(() => {
+      for (let i = 0; i < this.productItem; i++) {
 
-      for (let i = this.index; i < this.index + this.productItem; i++) {
-        //if (this.products[i] == undefined) continue;
-        this.items.push(this.products[i]);
-        var productId = this.items[i].id;
+        var productId = this.products[i].id;
 
         this.dataService.getProductDetails(productId).pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
-          //console.log(data);
-          var tempProdcutId = productId;
+
           var myJSON = JSON.stringify(data);
           var obj = JSON.parse(myJSON);
-          var imageURL = obj.images[0].original;
           var imageId = obj.id;
+
+          var imageURL = obj.images[0] == undefined ? "" : obj.images[0].original;
           this.dataService.getProductPrice(imageId).pipe(takeUntil(this.destroy$)).subscribe((data2: any[]) => {
             //console.log(data2);
             var newJSON = JSON.stringify(data2);
@@ -154,24 +174,18 @@ export class Tab1Page implements OnInit, OnDestroy {
               "quantityInCart": 1
             };
             this.AllProductsList.push(product);
+            pushitemcount = pushitemcount + 1;
 
-            if (isMoreLoad)
-              event.target.complete();
+            if (!isMoreLoad) {
+              if ((pushitemcount == this.productItem) || (this.AllProductsList.length >= this.maxLoadItem))
+                this.ionLoader.hideLoader();
+            }
+            else {
+              if ((pushitemcount == this.productItem)) {
+                event.target.complete();
+              }
 
-            this.loadCounter += 1;
-
-            // if (isMoreLoad) {
-            //   if ((this.loadCounter == this.maxLoadItem) || (this.newproductList.length >= this.products.length))
-            //     this.ionLoader.hideLoader();
-            // }
-            // else {
-            //   if ((this.loadCounter == this.maxLoadItem) || (this.newproductList.length >= this.products.length)) {
-            //     event.target.complete();
-            //   }
-            //   // disable the infinite scroll after loading all data
-            //   if (this.nextURL == null) {
-            //     event.target.disabled = true;
-            //   }
+            }
 
             // }
           },
@@ -186,8 +200,6 @@ export class Tab1Page implements OnInit, OnDestroy {
             this.ionLoader.hideLoader();
           });
       }
-      this.ionLoader.hideLoader();
-      //this.index = this.index + this.maxLoadItem;
 
     }, 500);
 
@@ -222,8 +234,11 @@ export class Tab1Page implements OnInit, OnDestroy {
       "quantityInCart": 1
     }
     this.cartService.addProduct(newItem);
+    this.IonicToast.showToast("Added to Cart Successfully!");
   }
-
+  GoToAllCategories() {
+    this.router.navigate(['/all-categories']);
+  }
   // removeToCart(item) {
   //   if (item.quantityInCart > 0) {
   //     item.quantityInCart -= 1;

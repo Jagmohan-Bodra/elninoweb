@@ -10,9 +10,8 @@ import { CartService } from '../services/cart.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import arabicLanguage from "../../assets/i18n/ar.json";
-import defaultLanguage from "../../assets/i18n/en.json";
 import { AppComponent } from '../app.component';
+import { TranslateConfigService } from '../services/translate-config.service';
 
 @Component({
   selector: 'app-tab5',
@@ -33,6 +32,7 @@ export class Tab5Page implements OnInit {
   account: string = "profile";
   base64Image: any = "http://www.gravatar.com/avatar?d=mm&s=140";
   lang: any;
+  checked = false;
   constructor(
     private dataService: DataService,
     private router: Router,
@@ -42,6 +42,7 @@ export class Tab5Page implements OnInit {
     private cartService: CartService,
     private nativeStorage: NativeStorage,
     private translate: TranslateService,
+    public MyTranslate: TranslateConfigService,
     public appComponent: AppComponent,
     private authenticationService: AuthenticationService,
   ) {
@@ -50,18 +51,18 @@ export class Tab5Page implements OnInit {
     // this.translate.use('en');
   }
 
-  switchLanguage() {
-    if (this.lang == 'en') {
-      this.translate.setTranslation('en', defaultLanguage);
-      this.translate.setDefaultLang('en');
-    }
-    else {
-      this.translate.setTranslation('ar', arabicLanguage);
-      this.translate.setDefaultLang('ar');
-    }
+  // switchLanguage() {
+  //   if (this.lang == 'en') {
+  //     this.translate.setTranslation('en', defaultLanguage);
+  //     this.translate.setDefaultLang('en');
+  //   }
+  //   else {
+  //     this.translate.setTranslation('ar', arabicLanguage);
+  //     this.translate.setDefaultLang('ar');
+  //   }
 
-    this.appComponent.useLanguage(this.lang);
-  }
+  //   this.appComponent.useLanguage(this.lang);
+  // }
 
   ngOnInit() {
     this.cartItems = this.cartService.getProducts();
@@ -93,8 +94,28 @@ export class Tab5Page implements OnInit {
       this.username = obj.user_name;
     }
 
-  }
 
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
+    if (lang == "en") {
+      this.checked = false;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
+    }
+    else {
+      this.checked = true;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
+    }
+
+  }
+  Clicked() {
+    //this.checked = !this.checked;
+    this.MyTranslate.setLanguage(this.checked);
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
+    this.appComponent.useLanguage(this.lang);
+  }
   //ngOnInit() {
   //this.userOrders = new Array(10);
   // if (!this.authenticationService.isAuthenticated()) {

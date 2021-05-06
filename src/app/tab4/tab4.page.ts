@@ -5,8 +5,7 @@ import { LoaderService } from '../shared/LoaderService';
 import { DataService } from '../services/common.service';
 import { CartService } from '../services/cart.service';
 import { TranslateService } from '@ngx-translate/core';
-import arabicLanguage from "../../assets/i18n/ar.json";
-import defaultLanguage from "../../assets/i18n/en.json";
+import { TranslateConfigService } from '../services/translate-config.service';
 import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-tab4',
@@ -26,12 +25,13 @@ export class Tab4Page implements OnInit {
   shippingAmount: Number = 30;
   amountWithShipping: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  checked: boolean = false;
+  checked = false;
   lang: any;
   constructor(
     private dataservice: DataService,
     private cartService: CartService,
     private translate: TranslateService,
+    public MyTranslate: TranslateConfigService,
     public appComponent: AppComponent,
     private loadservice: LoaderService
   ) { }
@@ -40,6 +40,19 @@ export class Tab4Page implements OnInit {
     this.cartItems = this.cartService.getProducts();
     this.calculateCartItem();
 
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
+    if (lang == "en") {
+      this.checked = false;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
+    }
+    else {
+      this.checked = true;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
+    }
+
   }
 
   ngOnInit() {
@@ -47,16 +60,10 @@ export class Tab4Page implements OnInit {
 
   }
   Clicked() {
-    this.checked = !this.checked;
-    if (!this.checked) {
-      this.translate.setTranslation('en', defaultLanguage);
-      this.translate.setDefaultLang('en');
-    }
-    else {
-      this.translate.setTranslation('ar', arabicLanguage);
-      this.translate.setDefaultLang('ar');
-    }
-
+    //this.checked = !this.checked;
+    this.MyTranslate.setLanguage(this.checked);
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
     this.appComponent.useLanguage(this.lang);
   }
 
@@ -64,8 +71,10 @@ export class Tab4Page implements OnInit {
     this.Totalcart = this.cartService.getCart();
     this.ProductsInCartList = this.Totalcart;
     // Calculate Total
-    this.totalAmount = this.ProductsInCartList.map(item => item.totalPrice).reduce((prev, next) => prev + next);
-    this.amountWithShipping = parseFloat(this.totalAmount.toString()) + parseFloat(this.shippingAmount.toString());
+    if (this.ProductsInCartList.length > 0) {
+      this.totalAmount = this.ProductsInCartList.map(item => item.totalPrice).reduce((prev, next) => prev + next);
+      this.amountWithShipping = parseFloat(this.totalAmount.toString()) + parseFloat(this.shippingAmount.toString());
+    }
   }
 
 

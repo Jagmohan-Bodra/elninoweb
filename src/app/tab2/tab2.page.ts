@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import arabicLanguage from "../../assets/i18n/ar.json";
 import defaultLanguage from "../../assets/i18n/en.json";
 import { AppComponent } from '../app.component';
+import { TranslateConfigService } from '../services/translate-config.service';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -26,7 +27,7 @@ export class Tab2Page implements OnInit {
   productItem: number = 10;
   private newproductList = [];
   products = [];
-  checked: boolean = false;
+  checked = false;
   lang: any;
   constructor(
     private router: Router,
@@ -34,6 +35,7 @@ export class Tab2Page implements OnInit {
     private dataService: DataService,
     private cartService: CartService,
     private translate: TranslateService,
+    public MyTranslate: TranslateConfigService,
     public appComponent: AppComponent,
     private ionLoader: LoaderService) {
     this.cards = new Array(10);
@@ -44,17 +46,26 @@ export class Tab2Page implements OnInit {
     this.cartItems = this.cartService.getProducts();
     this.cart = this.cartService.getCart();
   }
-  Clicked() {
-    this.checked = !this.checked;
-    if (!this.checked) {
-      this.translate.setTranslation('en', defaultLanguage);
-      this.translate.setDefaultLang('en');
+  ionViewWillEnter() {
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
+    if (lang == "en") {
+      this.checked = false;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
     }
     else {
-      this.translate.setTranslation('ar', arabicLanguage);
-      this.translate.setDefaultLang('ar');
+      this.checked = true;
+      this.MyTranslate.setLanguage(this.checked);
+      this.appComponent.useLanguage(this.lang);
     }
+  }
 
+  Clicked() {
+    //this.checked = !this.checked;
+    this.MyTranslate.setLanguage(this.checked);
+    var lang = this.MyTranslate.getCurrentLanguage();
+    this.lang = lang;
     this.appComponent.useLanguage(this.lang);
   }
   openCart() {

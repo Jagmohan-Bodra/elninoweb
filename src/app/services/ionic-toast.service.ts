@@ -13,6 +13,7 @@ export class IonicToastService {
   showToast(str: string) {
     this.myToast = this.toast.create({
       message: str,
+      //position: 'b',
       duration: 2000
     }).then((toastData) => {
       toastData.present();

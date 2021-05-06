@@ -59,8 +59,10 @@ export class CheckoutPage implements OnInit {
     this.Totalcart = this.cartService.getCart();
     this.ProductsInCartList = this.Totalcart;
     // Calculate Total
-    this.totalAmount = this.ProductsInCartList.map(item => item.totalPrice).reduce((prev, next) => prev + next);
-    this.amountWithShipping = parseFloat(this.totalAmount.toString()) + parseFloat(this.shippingAmount.toString());
+    if (this.ProductsInCartList.length > 0) {
+      this.totalAmount = this.ProductsInCartList.map(item => item.totalPrice).reduce((prev, next) => prev + next);
+      this.amountWithShipping = parseFloat(this.totalAmount.toString()) + parseFloat(this.shippingAmount.toString());
+    }
   }
 
   ionViewDidEnter() {

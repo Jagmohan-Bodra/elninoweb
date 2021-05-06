@@ -7,6 +7,7 @@ import { DataService } from '../../services/common.service';
 import { LoaderService } from '../../shared/LoaderService';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
+import { IonicToastService } from '../../services/ionic-toast.service';
 
 @Component({
   selector: 'app-description',
@@ -34,6 +35,7 @@ export class DescriptionPage implements OnInit {
   constructor(
     private animatioCntrl: AnimationController,
     private cartService: CartService,
+    public IonicToast: IonicToastService,
     private dataService: DataService, private ionLoader: LoaderService,
     private router: Router
   ) {
@@ -271,5 +273,6 @@ export class DescriptionPage implements OnInit {
       "quantityInCart": 1
     }
     this.cartService.addProduct(newItem);
+    this.IonicToast.showToast("Added to Cart Successfully!");
   }
 }

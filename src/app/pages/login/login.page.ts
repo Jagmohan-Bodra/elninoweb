@@ -3,6 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/common.service'
+import { LoaderService } from '../../shared/LoaderService';
 import { ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { IonicToastService } from '../../services/ionic-toast.service';
@@ -13,89 +14,79 @@ import { AuthenticationService } from '../../services/Authentication.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  ionicForm: FormGroup;
-  isSubmitted = false;
-  userData: any;
-  username: string;
-  password: string;
+  loginForm: FormGroup;
+  show: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private dataService: DataService,
+    private ionLoader: LoaderService,
     private router: Router,
     public formBuilder: FormBuilder,
     private ionicToastService: IonicToastService,
     private authenticationService: AuthenticationService,
     public toastCtrl: ToastController) {
+    this.show = false;
   }
 
   ngOnInit() {
-    this.ionicForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.minLength(2)]]
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(40)]],
+      password: ['', [Validators.required, Validators.minLength(5)]]
     })
   }
 
-  login() {
-    this.userData = {
-      "username": this.username,
-      "password": this.password
-    }
-
-    this.dataService.AuthenticateUser(JSON.stringify(this.userData)).pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
-      console.log("Succcess" + data);
-      var myJSON = JSON.stringify(data);
-      var obj = JSON.parse(myJSON);
-      this.authenticationService.login(obj.token, this.username)
-      this.openSuccessToast();
-      //this.showToast('top');
-      ///this.ionicToastService.showToast('Succcess');
-      this.router.navigate(['/tabs/tab1'])
-    },
-      error => {
-        this.openFailToast();
-        //this.showToast('top');
-        this.ionicToastService.showToast('Error');
-        console.log('Something goes wrong', error)
-      }
-    )
+  // click event function toggle
+  showPassword() {
+    this.show = !this.show;
   }
 
-  async showToast(position: any) {
-    const toast = await this.toastCtrl.create({
-      message: 'Mmmm, buttered toast',
-      duration: 1000,
-      position,
-      color: 'tertiary',
-      cssClass: 'toast-1-css',
-    });
-    toast.present();
+  onLogin() {
+    this.ionLoader.showLoader();
+    setTimeout(() => {
+      var userData = { 'username': this.loginForm.value.email, 'password': this.loginForm.value.password };
+
+      this.dataService.AuthenticateUser(userData).pipe(takeUntil(this.destroy$)).subscribe((data: any[]) => {
+        console.log("Succcess" + data);
+        var myJSON = JSON.stringify(data);
+        var obj = JSON.parse(myJSON);
+        this.ionLoader.hideLoader();
+        //this.authenticationService.login(obj.token, this.username)
+        this.openSuccessToast();
+
+        this.router.navigate(['/tabs/tab1'])
+      },
+        error => {
+          this.ionLoader.hideLoader();
+          console.log('Something goes wrong', error);
+          this.openFailToast("Invalid Credentials.");
+        }
+      )
+
+    }, 100);
+
   }
 
   async openSuccessToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'Login Successful',
-      duration: 3000
+    this.toastCtrl.create({
+      header: 'Login Successful',
+      duration: 3000,
+    }).then(res => {
+      res.present();
+
     });
-    toast.present();
   }
 
-  async openFailToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'Login Unsuccessful',
-      // position: 'middle',
-      duration: 5000
-    });
-    toast.present();
-  }
+  async openFailToast(error: string) {
 
-  submitForm() {
-    this.isSubmitted = true;
-    if (!this.ionicForm.valid) {
-      console.log('Please provide all the required values!')
-      return false;
-    } else {
-      console.log(this.ionicForm.value)
-    }
+    this.toastCtrl.create({
+      header: 'Login failed due to following error-',
+      duration: 5000,
+      message: error,
+    }).then(res => {
+      res.present();
+
+    });
+
   }
 
 }

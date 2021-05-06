@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { CouponsPageRoutingModule } from './coupons-routing.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { CouponsPage } from './coupons.page';
 
 @NgModule({
@@ -13,8 +13,9 @@ import { CouponsPage } from './coupons.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CouponsPageRoutingModule
+    CouponsPageRoutingModule,
+    TranslateModule
   ],
   declarations: [CouponsPage]
 })
-export class CouponsPageModule {}
+export class CouponsPageModule { }

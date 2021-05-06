@@ -33,41 +33,47 @@
         <ion-row color="primary" justify-content-center>
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
             <div text-center>
-              <h3>Add your shipping address!</h3>
+              <h3>{{'ADDSHIPPING' | translate }}!</h3>
             </div>
             <div padding>
               <ion-item>
-                <ion-input name="FirstName" type="text" placeholder="First Name" ngModel required></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-input name="LastName" type="text" placeholder="Last Name" ngModel required></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-input name="First line of address " type="text" placeholder="Address 1" ngModel required>
+                <ion-input name="FirstName" type="text" placeholder="{{'FNAME' | translate}}" ngModel required>
                 </ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="City" type="text" placeholder="City" ngModel required></ion-input>
+                <ion-input name="LastName" type="text" placeholder="{{'LNAME' | translate}}" ngModel required>
+                </ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="State/County" type="text" placeholder="State/County" ngModel required></ion-input>
+                <ion-input name="First line of address " type="text" placeholder="{{'ADD1' | translate }}" ngModel
+                  required>
+                </ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="Post/Zip-code " type="text" placeholder="Post/Zip-code" ngModel required></ion-input>
+                <ion-input name="City" type="text" placeholder="{{'CITY' | translate}}" ngModel required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="Country" type="text" placeholder="Country" ngModel required></ion-input>
+                <ion-input name="State/County" type="text" placeholder="{{'STATE/COUNTY' | translate }}" ngModel
+                  required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="Phone number" type="text" placeholder="Phone number" ngModel></ion-input>
+                <ion-input name="Post/Zip-code " type="text" placeholder="{{'ZIP' | translate }}" ngModel required>
+                </ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="Email" type="text" placeholder="Email Id" ngModel required></ion-input>
+                <ion-input name="Country" type="text" placeholder="{{'COUNTRY' | translate}}" ngModel required>
+                </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input name="Phone number" type="text" placeholder="{{'PHONE' | translate }}" ngModel></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input name="Email" type="text" placeholder="{{'EMAIL' | translate }}" ngModel required></ion-input>
               </ion-item>
             </div>
             <div class="ion-padding container">
               <ion-button size="large" class="main-button" type="submit" [disabled]="form.invalid" expand="block">
-                continue
+                {{'CONTINUE'| translate }}
               </ion-button>
             </div>
           </ion-col>

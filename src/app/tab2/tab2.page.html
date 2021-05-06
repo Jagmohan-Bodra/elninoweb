@@ -5,7 +5,7 @@
   <ion-toolbar class="padtop setHeaderBG">
     <div class="search ion-padding">
       <ion-item lines="none">
-        <ion-input placeholder="Search Your Product"></ion-input>
+        <ion-input placeholder="{{'SEARCH PRODUCTS' | translate }}t"></ion-input>
         <ion-icon name="search-outline" slot="start"></ion-icon>
       </ion-item>
     </div>
@@ -17,8 +17,8 @@
           <ion-select-option value="ar">عربى</ion-select-option>
         </ion-select>
       </ion-item> -->
-      <!-- <span class="textWhite">en</span>
-      <ion-toggle [value]="checked" (ionChange)="Clicked()"></ion-toggle><span class="textWhite">عربى</span> -->
+      <span class="textWhite">en</span>
+      <ion-toggle [(ngModel)]="checked" (ngModelChange)="Clicked()"></ion-toggle><span class="textWhite">عربى</span>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="openCart()">
@@ -46,13 +46,13 @@
 
     <ion-segment [(ngModel)]="category">
       <ion-segment-button value="gear">
-        Cosmetics
+        {{'COSMETICS' | translate}}
       </ion-segment-button>
       <ion-segment-button value="clothing">
-        Electronics
+        {{'ELECTRONICS' | translate}}
       </ion-segment-button>
       <ion-segment-button value="nutrition">
-        Perfumes
+        {{'PERFUMES' | translate}}
       </ion-segment-button>
     </ion-segment>
 
