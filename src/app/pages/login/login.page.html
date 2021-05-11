@@ -11,25 +11,28 @@
 
 <ion-content>
   <div class="ion-padding container">
-    <h1>Login</h1>
+    <h1>{{'LOGIN' | translate}}</h1>
 
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()" novalidate>
       <div class="form-container">
         <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input [formControl]="loginForm.controls['email']" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" type="email" placeholder="your@email.com" autocomplete="off" ngModel required></ion-input>
+          <ion-label position="floating">{{'EMAIL' | translate}}</ion-label>
+          <ion-input [formControl]="loginForm.controls['email']" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            name="email" type="email" placeholder="your@email.com" autocomplete="off" ngModel required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input [formControl]="loginForm.controls['password']" name="password" [type]="show ? 'text' : 'password'" ngModel required></ion-input>
+          <ion-label position="floating">{{'PASSWORD' | translate}}</ion-label>
+          <ion-input [formControl]="loginForm.controls['password']" name="password" [type]="show ? 'text' : 'password'"
+            ngModel required></ion-input>
           <ion-icon name="eye" slot="end" (click)="showPassword()"></ion-icon>
         </ion-item>
-        <ion-button type="submit" [disabled]="loginForm.invalid" expand="block" class="main-button">Log in</ion-button>
-        
+        <ion-button type="submit" [disabled]="loginForm.invalid" expand="block" class="main-button">{{'LOG IN' |
+          translate}}</ion-button>
+
         <div class="sign-up">
-          Don't have an account? <ion-button color="dark" fill="clear" routerLink="/signup" routerDirection="forward">
-            Sign
-            up</ion-button>
+          {{'DONTHAVEACCOUNT' | translate}} <ion-button color="dark" fill="clear" routerLink="/signup"
+            routerDirection="forward">
+            {{'SIGNUP' | translate}}</ion-button>
         </div>
       </div>
     </form>

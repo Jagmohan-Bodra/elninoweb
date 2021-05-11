@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { AllCategoriesPageRoutingModule } from './all-categories-routing.module';
-
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AllCategoriesPage } from './all-categories.page';
 
 @NgModule({
@@ -13,8 +13,9 @@ import { AllCategoriesPage } from './all-categories.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AllCategoriesPageRoutingModule
+    AllCategoriesPageRoutingModule,
+    TranslateModule
   ],
   declarations: [AllCategoriesPage]
 })
-export class AllCategoriesPageModule {}
+export class AllCategoriesPageModule { }

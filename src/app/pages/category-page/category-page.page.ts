@@ -20,7 +20,7 @@ export class CategoryPagePage implements OnInit {
   productItem: number = 10;
   items: any[] = [];
   datalist: any[] = [];
-  private newproductList = [];
+  public newproductList = [];
   index: number = 0;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -126,6 +126,10 @@ export class CategoryPagePage implements OnInit {
 
     }, 500);
 
+  }
+
+  openCart() {
+    this.router.navigate(['tabs/tab4']);
   }
 
   GoToDescriptionPage(id: number) {

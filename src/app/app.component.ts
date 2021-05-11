@@ -4,7 +4,7 @@ import { Platform } from '@ionic/angular';
 //import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { AuthenticationService } from './services/Authentication.service';
+import { AuthenticationService } from './services/authentication.service';
 import { TranslateService } from '@ngx-translate/core';
 import defaultLanguage from "./../assets/i18n/en.json";
 import arabicLanguage from "./../assets/i18n/ar.json";

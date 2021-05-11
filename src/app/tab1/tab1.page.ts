@@ -5,7 +5,7 @@ import { DataService } from '../services/common.service';
 import { LoaderService } from '../shared/LoaderService';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/Authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 import { CartService } from '../services/cart.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,7 +24,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   items: any[] = [];
   datalist: any[] = [];
   products = [];
-  private AllProductsList = [];
+  AllProductsList = [];
   Allcategories = []
   index: number = 0;
   loadCounter: number = 0;

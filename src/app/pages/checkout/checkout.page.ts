@@ -25,7 +25,8 @@ export class CheckoutPage implements OnInit {
   amountWithShipping: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
   cart = [];
-  private newproductList = [];
+  Coupon: string;
+  newproductList = [];
   result: Observable<any>;
 
   url = 'http://saib.gate2play.com/hussam/ionicserverside.php';

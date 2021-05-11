@@ -18,15 +18,16 @@ export class DescriptionPage implements OnInit {
   cart = [];
   cartItems = [];
   cartProduct = {};
-  product = {};
+  public product: any;
   items: any[] = [];
   selectedSize: number;
   selectedColor: number;
   activeVariation: string;
   productId: number;
   products = [];
-  private newproductList = [];
+  newproductList = [];
   index: number = 0;
+  images: any;
   loadCounter: number = 0;
   maxLoadItem: number;
   productItem: number = 10;
@@ -70,7 +71,7 @@ export class DescriptionPage implements OnInit {
           //this.items[i].url = imageURL;
           //this.products = data;
           //this.loadData(false, "");   
-
+          this.images = obj.images;
           var tempproduct = {
             "id": obj.id,
             "name": obj.title,
@@ -274,5 +275,15 @@ export class DescriptionPage implements OnInit {
     }
     this.cartService.addProduct(newItem);
     this.IonicToast.showToast("Added to Cart Successfully!");
+  }
+
+  GoToDescriptionPage(id: number) {
+    this.router.navigate(['description'],
+      {
+        state: {
+          Id: id
+        }
+      }
+    );
   }
 }

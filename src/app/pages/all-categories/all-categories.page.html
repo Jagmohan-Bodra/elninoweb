@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content class="bgCategory">
-  <h1 class="title textWhite">All Categories</h1>
+  <h1 class="title textWhite">{{'ALLCATEGORIES' | translate}}</h1>
   <ion-card mode="ios" *ngFor="let item of Allcategories">
     <ion-card-content>
       <ion-col routerLink="/category-page/{{item.id}}">

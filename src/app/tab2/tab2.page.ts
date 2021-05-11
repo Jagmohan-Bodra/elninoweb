@@ -25,7 +25,7 @@ export class Tab2Page implements OnInit {
   items: any[] = [];
   index: number = 0;
   productItem: number = 10;
-  private newproductList = [];
+  newproductList = [];
   products = [];
   checked = false;
   lang: any;

@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { DataService } from '../../services/common.service'
 import { LoaderService } from '../../shared/LoaderService';
 import { ToastController } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { IonicToastService } from '../../services/ionic-toast.service';
-import { AuthenticationService } from '../../services/Authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,6 +15,7 @@ import { AuthenticationService } from '../../services/Authentication.service';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
+  formControl: FormControl;
   show: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -22,8 +23,8 @@ export class LoginPage implements OnInit {
     private ionLoader: LoaderService,
     private router: Router,
     public formBuilder: FormBuilder,
-    private ionicToastService: IonicToastService,
-    private authenticationService: AuthenticationService,
+    public ionicToastService: IonicToastService,
+    public authenticationService: AuthenticationService,
     public toastCtrl: ToastController) {
     this.show = false;
   }

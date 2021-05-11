@@ -6,18 +6,20 @@ import { BehaviorSubject } from 'rxjs';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { IonicToastService } from '../services/ionic-toast.service';
 
-const TOKEN_KEY = 'auth-token';
+//const TOKEN_KEY = 'auth-token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  userInfo: any;
+  userInfo = {};
   public authenticationState = new BehaviorSubject(false);
   public isAuthneticate: boolean = false;
-  constructor(private storage: Storage, private plt: Platform,
-    private nativeStorage: NativeStorage,
-    private ionicToastService: IonicToastService,
+  constructor(
+    public storage: Storage,
+    public plt: Platform,
+    public nativeStorage: NativeStorage,
+    public ionicToastService: IonicToastService,
   ) {
     this.plt.ready().then(() => {
       this.checkToken();

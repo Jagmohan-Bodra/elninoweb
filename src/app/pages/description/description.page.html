@@ -79,13 +79,7 @@
 
   <div class="description">
     <h5>{{'DESCRIPTION' | translate}}</h5>
-    <span *ngIf="product.description != '' ">
-      <p [innerHTML]="product.description"></p>
-    </span>
-
-    <span *ngIf="product.description == ''">
-      <p>{{'NA' | translate}}</p>
-    </span>
+    <p [innerHTML]="product.description"></p>
 
   </div>
 
@@ -114,8 +108,8 @@
   <div class="product-slider ion-padding-start sliderBG">
     <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
       <ion-slide *ngFor="let product of newproductList | slice : 0 : 10">
-        <ion-col class="ion-text-left" routerDirection="forward" (click)="GoToDescriptionPage(product.id)">
-          <img src="{{ product.imgPath }}" />
+        <ion-col class="ion-text-left" routerDirection="forward">
+          <img src="{{ product.imgPath }}" (click)="GoToDescriptionPage(product.id)" />
           <p class="fontBold">${{ product.price }}</p>
           <h6>{{ product.name | slice:0:17 }}</h6>
         </ion-col>
